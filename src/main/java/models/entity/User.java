@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,10 +22,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Size(max = 50, message = "email должен быть короче 50 символов")
     @Column(name = "email", length = 50, nullable = false, unique = true)
+    @EqualsAndHashCode.Include
     private String email;
 
     @Column(name = "first_name", nullable = false)
@@ -47,7 +49,7 @@ public class User {
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean enabled = true;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
