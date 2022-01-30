@@ -1,24 +1,44 @@
 # Документация Cinema base
-## Работа с git
-### Клонирование проекта
+## 1. Запуск проекта
 
-1. На странице репозитория убедитесь, что выбрана ветка **dev** (1), нажмите кнопку **Clone** (2), скопируйте ссылку (3).
+В пропертях проекта для подключения к БД используются параметры типа: ${POSTGRESQL_SERVER}
 
-![img.png](src/main/resources/static/images/git_tutor/git_project_clone.png)
+![img.png](src/main/resources/static/images/git_tutor/db_parameters.png)
 
-2. Откройте **Intellij IDEA**, нажмите **Get from version control** на экране приветствия, либо **VCS | Git | Clone...** в меню.
+Их можно прописать в конфигурации проекта
 
-![](src/main/resources/static/images/git_tutor/git_clone_get.png)
+1 шаг  
+![img_1.png](src/main/resources/static/images/git_tutor/start_project_1.png)
 
-![](src/main/resources/static/images/git_tutor/git_clone_get_alt.png)
+2 шаг  
+![img.png](src/main/resources/static/images/git_tutor/start_project_2.png)
 
-3. Вставьте скопированную ссылку в строку **URL**, нажмите **Clone**.
+## 2. Создание merge request
 
-![](src/main/resources/static/images/git_tutor/git_clone_clone.png)
+Открываем за асигненую за вами карточку  
+![img.png](src/main/resources/static/images/git_tutor/img.png)
+
+Перед созданием мердж реквеста необходимо задать осмысленное(!) название для ветки, 
+для этого открой мердж реквест(1), пропишите имя для ветки(2) и убедитесь, 
+что новая ветка будет создана от **dev** ветки(3)
+![img_2.png](src/main/resources/static/images/git_tutor/img_2.png)
+
+В мердж реквесте в разделе **Overview**(1) будут отображаться замечания к коду, 
+свои изменения можно будет посмотреть в разделе **Changes**(2), 
+созданная ветка и куда она будет мерджиться можно будет посмотреть в блоке (3), 
+в случае если мердж реквест нужно изменить, это можно сделать в кнопке **Edit**(4), 
+после выполнения задания обязательно нажимайте кнопку **Mark as ready**(5), 
+в гитлабе за асигненые за вами карточки можно просмотреть по кнопке справа в виде 
+карточек(6), а ваши мердж реквесты в кнопке в виде веток(7)
+![img_3.png](src/main/resources/static/images/git_tutor/img_3.png)
 
 
+## 3. Пушить свои изменения
+Прежде чем запушить свои изменения, необходимо подготовить ветку к отправке.
 
-
+1. Нажмите на текущую ветку в правом нижнем углу. Выберите опцию **dev | update**.
+   Таким образом вы скачаете в свою локальную ветку **dev** все коммиты которые были замержены,
+   пока вы работали в своей ветке.
 
 
 корпоративная почта:  

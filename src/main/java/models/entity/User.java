@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(of = {"id", "email"})
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,21 +22,22 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    @EqualsAndHashCode.Include
     private Long id;
 
     @Size(max = 50, message = "email должен быть короче 50 символов")
     @Column(name = "email", length = 50, nullable = false, unique = true)
-    @EqualsAndHashCode.Include
     private String email;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "nickname", nullable = false, unique = true)
+    private String nickname;
+
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
 
-    //@Pattern(regexp = ValidationPattern.PASSWORD_PATTERN, message = "Пароль не должен содержать пробельных символов")
+    //TODO добавить валидатор на отсутствие пробелов (через @Pattern)
     @Size(min = 6, max = 60, message = "Пароль должен быть больше 6 символов и меньше 30")
     @Column(name = "password", length = 60, nullable = false)
     private String password;
@@ -50,8 +51,6 @@ public class User {
     private Boolean enabled = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinColumn(name = "role_id")
     private Role role;
 }
