@@ -1,4 +1,4 @@
-package models.entity;
+package com.kata.cinema.base.models.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

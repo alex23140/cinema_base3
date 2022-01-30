@@ -1,4 +1,4 @@
-package models.entity;
+package com.kata.cinema.base.models.entity;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -46,7 +45,7 @@ public class User {
     @Type(type = "org.hibernate.type.LocalDateType")
     private LocalDate birthday;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "TINYINT")
+    @Column(name = "enabled", nullable = false, columnDefinition = "SMALLINT")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean enabled = true;
 
