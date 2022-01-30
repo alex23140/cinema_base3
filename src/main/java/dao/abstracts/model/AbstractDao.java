@@ -1,4 +1,4 @@
-package dao.abstr.model;
+package dao.abstracts.model;
 
 import java.util.List;
 import java.util.Optional;
