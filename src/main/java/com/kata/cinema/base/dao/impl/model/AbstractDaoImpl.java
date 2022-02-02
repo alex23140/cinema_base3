@@ -22,7 +22,7 @@ public abstract class AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
     public AbstractDaoImpl() {
         this.persistentClass = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         this.genericClassName = persistentClass.toGenericString();
-        this.className = genericClassName.substring(genericClassName.lastIndexOf('.') + 1);;
+        this.className = genericClassName.substring(genericClassName.lastIndexOf('.') + 1);
     }
 
     @Override
