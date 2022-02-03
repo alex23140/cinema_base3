@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
+public abstract class   AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
 
     @PersistenceContext
     protected EntityManager entityManager;
