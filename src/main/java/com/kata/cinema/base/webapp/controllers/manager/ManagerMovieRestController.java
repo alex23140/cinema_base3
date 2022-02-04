@@ -30,10 +30,10 @@ public class ManagerMovieRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveMovie(@Valid @RequestBody MovieDto movie) {
-        Movie movieDto = movieMapper.toEntity(movie);
-        movieService.create(movieDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(movieDto);
+    public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
+        Movie movie = movieMapper.toEntity(movieDto);
+        movieService.create(movie);
+        return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie));
     }
 
     @GetMapping("/{id}")
