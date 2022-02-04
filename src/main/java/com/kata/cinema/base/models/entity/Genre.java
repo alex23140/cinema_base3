@@ -6,21 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id", "name"})
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "genres")
+public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    private Long id;
+    Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "name", nullable = false, unique = true)
+    String name;
 }

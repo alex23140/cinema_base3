@@ -10,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
+public abstract class   AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -22,7 +22,7 @@ public abstract class AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
     public AbstractDaoImpl() {
         this.persistentClass = (Class<E>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
         this.genericClassName = persistentClass.toGenericString();
-        this.className = genericClassName.substring(genericClassName.lastIndexOf('.') + 1);;
+        this.className = genericClassName.substring(genericClassName.lastIndexOf('.') + 1);
     }
 
     @Override
