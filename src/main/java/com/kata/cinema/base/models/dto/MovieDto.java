@@ -24,5 +24,7 @@ public class MovieDto {
     private MPAA filmRating;
     private String description;
     private Boolean previewIsExist = false;
-   // private Set<Genre> genres;
+
+    //TODO добавить связь Movie и Genre
+    //private Set<Genre> genres;
 }
