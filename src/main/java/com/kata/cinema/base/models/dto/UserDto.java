@@ -2,8 +2,8 @@ package com.kata.cinema.base.models.dto;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
+
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Getter
@@ -11,11 +11,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    @NotEmpty
+    @NotBlank
     Long id;
-    @NotEmpty
+    @NotBlank
     String email;
-    @NotEmpty
+    @NotBlank
     String nickname;
     String firstName;
     String lastName;

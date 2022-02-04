@@ -3,17 +3,17 @@ package com.kata.cinema.base.webapp.controllers.security;
 import com.kata.cinema.base.mapper.UserRegistrationMapper;
 import com.kata.cinema.base.models.dto.UserRegistrationDto;
 import com.kata.cinema.base.service.abstracts.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@AllArgsConstructor
 public class AuthenticationController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserRegistrationMapper userRegistrationMapper;
+
+    private final UserService userService;
+    private final UserRegistrationMapper userRegistrationMapper;
 
     @PostMapping(value = "/api/registration")
     public ResponseEntity<UserRegistrationDto> create(@RequestBody UserRegistrationDto userRegistrationDto){

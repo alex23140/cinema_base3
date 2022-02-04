@@ -1,26 +1,19 @@
 package com.kata.cinema.base.webapp.controllers.user;
 
+import com.kata.cinema.base.dao.abstracts.model.UserDtoDao;
 import com.kata.cinema.base.mapper.UserMapper;
 import com.kata.cinema.base.models.dto.UserDto;
 import com.kata.cinema.base.service.abstracts.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import java.util.List;
-
+@AllArgsConstructor
 public class UserRestController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    private final UserService userService;
+    private final UserMapper userMapper;
+    private final UserDtoDao userDtoDao;
 
     @PutMapping("/api/user")
     public ResponseEntity<UserDto> edit(@RequestBody UserDto userDto){
@@ -35,24 +28,9 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/api/users/{id}")
-    public List<UserDto> getUser(@PathVariable("id") long id){
+    public UserDto getUser(@PathVariable("id") long id){
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        return entityManager.createQuery("""
-                        SELECT NEW com.kata.cinema.base.models.dto.UserDto(
-                        u.id, 
-                        u.email, 
-                        u.nickname, 
-                        u.firstName, 
-                        u.lastName, 
-                        u.password, 
-                        u.birthday) 
-                        FROM User u 
-                        WHERE u.id= :id
-                        """ ,UserDto.class)
-                .setParameter("id",id)
-                .getResultList();
+        return userDtoDao.toDto(id);
 
     }
 
