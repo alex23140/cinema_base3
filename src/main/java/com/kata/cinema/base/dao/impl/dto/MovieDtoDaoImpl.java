@@ -1,6 +1,6 @@
-package com.kata.cinema.base.dao.impl.model;
+package com.kata.cinema.base.dao.impl.dto;
 
-import com.kata.cinema.base.dao.abstracts.model.MovieDtoDao;
+import com.kata.cinema.base.dao.abstracts.dto.MovieDtoDao;
 import com.kata.cinema.base.models.dto.MovieDto;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,7 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
     protected EntityManager entityManager;
 
     @Override
+    //TODO обернуться в optional
     public MovieDto getById(Long id) {
         return entityManager.createQuery("""
                         SELECT NEW com.kata.cinema.base.models.dto.MovieDto(

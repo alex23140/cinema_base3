@@ -1,9 +1,9 @@
-package com.kata.cinema.base.service.impl;
+package com.kata.cinema.base.service.impl.entity;
 
 import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 
 import com.kata.cinema.base.models.entity.Movie;
-import com.kata.cinema.base.service.abstracts.MovieService;
+import com.kata.cinema.base.service.abstracts.entity.MovieService;
 import org.springframework.stereotype.Service;
 
 @Service

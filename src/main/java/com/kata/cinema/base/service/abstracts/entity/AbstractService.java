@@ -1,4 +1,4 @@
-package com.kata.cinema.base.service.abstracts;
+package com.kata.cinema.base.service.abstracts.entity;
 
 import java.util.List;
 import java.util.Optional;

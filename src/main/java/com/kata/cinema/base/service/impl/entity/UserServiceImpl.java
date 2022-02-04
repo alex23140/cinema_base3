@@ -1,9 +1,9 @@
-package com.kata.cinema.base.service.impl;
+package com.kata.cinema.base.service.impl.entity;
 
 import com.kata.cinema.base.dao.abstracts.model.UserDao;
 import com.kata.cinema.base.models.entity.User;
 import org.springframework.stereotype.Service;
-import com.kata.cinema.base.service.abstracts.UserService;
+import com.kata.cinema.base.service.abstracts.entity.UserService;
 
 @Service
 public class UserServiceImpl extends AbstractServiceImpl<Long, User> implements UserService {

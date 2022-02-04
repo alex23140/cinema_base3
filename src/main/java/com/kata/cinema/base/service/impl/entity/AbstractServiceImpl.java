@@ -1,8 +1,8 @@
-package com.kata.cinema.base.service.impl;
+package com.kata.cinema.base.service.impl.entity;
 
 import com.kata.cinema.base.dao.abstracts.model.AbstractDao;
 import org.springframework.transaction.annotation.Transactional;
-import com.kata.cinema.base.service.abstracts.AbstractService;
+import com.kata.cinema.base.service.abstracts.entity.AbstractService;
 
 import java.util.List;
 import java.util.Optional;

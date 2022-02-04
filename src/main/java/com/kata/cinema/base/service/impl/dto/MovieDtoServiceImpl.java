@@ -1,8 +1,8 @@
-package com.kata.cinema.base.service.impl;
+package com.kata.cinema.base.service.impl.dto;
 
-import com.kata.cinema.base.dao.abstracts.model.MovieDtoDao;
+import com.kata.cinema.base.dao.abstracts.dto.MovieDtoDao;
 import com.kata.cinema.base.models.dto.MovieDto;
-import com.kata.cinema.base.service.abstracts.MovieDtoService;
+import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

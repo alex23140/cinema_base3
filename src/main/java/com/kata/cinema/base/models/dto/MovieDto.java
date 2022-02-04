@@ -6,8 +6,8 @@ import com.kata.cinema.base.models.enums.RARS;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -17,6 +17,8 @@ import java.util.Set;
 @Component
 public class MovieDto {
     private Long id;
+
+    @NotBlank
     private String name;
     private String country;
     private LocalDate year;
@@ -26,5 +28,5 @@ public class MovieDto {
     private Boolean previewIsExist = false;
 
     //TODO добавить связь Movie и Genre
-    //private Set<Genre> genres;
+    //private List<Genre> genres;
 }
