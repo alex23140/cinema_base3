@@ -15,7 +15,7 @@ public class UserDtoDaoImpl implements UserDtoDao {
 
     @Override
     //TODO поменять наименование метода
-    public UserDto toDto(long userId) {
+    public UserDto getById(long userId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         return entityManager.createQuery("""
