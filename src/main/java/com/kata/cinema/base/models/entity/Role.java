@@ -23,8 +23,4 @@ public class Role {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Transient
-    @ManyToMany(mappedBy = "roles")
-    private Set<Movie> users;
 }
