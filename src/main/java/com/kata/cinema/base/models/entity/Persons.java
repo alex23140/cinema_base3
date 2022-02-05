@@ -39,10 +39,11 @@ public class Persons {
     @Column(name = "place_of_birth")
     String place_of_birth;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "person_profession",
-            joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "profession_id"))
-    Set<Professions> professions;
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "person_profession",
+//            joinColumns = @JoinColumn(name = "person_id"),
+//            inverseJoinColumns = @JoinColumn(name = "profession_id"))
+//    Set<Professions> professions;
+
 
 }

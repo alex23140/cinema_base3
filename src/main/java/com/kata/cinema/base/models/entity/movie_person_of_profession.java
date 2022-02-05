@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Entity
-@Table(name = "movie_person")
-public class movie_person {
+@Table(name = "movie_person_of_profession")
+public class movie_person_of_profession {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
@@ -29,11 +29,8 @@ public class movie_person {
     @JoinColumn(name = "person_id")
     private Persons persons;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "movie_person_of_profession",
-//            joinColumns = @JoinColumn(name = "movie_id"),
-//            inverseJoinColumns = @JoinColumn(name = "profession_id")
-//    )
-//    Set<Professions> professions;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profession_id")
+    private Professions profession;
 
 }

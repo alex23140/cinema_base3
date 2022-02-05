@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -23,5 +24,4 @@ public class Professions {
 
     @Column(name = "name")
     String name;
-
 }
