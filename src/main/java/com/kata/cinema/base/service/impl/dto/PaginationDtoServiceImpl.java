@@ -20,6 +20,8 @@ public class PaginationDtoServiceImpl<T> implements PaginationDtoService<T> {
     @Override
     public PageDto<T> getPageDto(Integer currentPage, Integer itemsOnPage) {
         return null;
+                // return new PageDto<T>( tPaginationDtoDao.getResultTotal(parameters) ,
+                //                tPaginationDtoDao.getItemsDto(currentPage,itemsOnPage, parameters)  );
     }
 
     @Override
