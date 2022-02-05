@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface WatchlistDtoDao extends AbstractDao<Long, WatchlistDto> {
+public interface WatchlistDtoDao {
 
     public List<WatchlistDto> findAllWatchlistByUserId(Long userId);
 
-    public WatchlistDto findWatchlistDtoById (Long id);
+    public WatchlistDto findWatchlistDtoById(Long id);
 }

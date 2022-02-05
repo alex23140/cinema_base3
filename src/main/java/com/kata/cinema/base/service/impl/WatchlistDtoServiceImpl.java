@@ -1,7 +1,6 @@
 package com.kata.cinema.base.service.impl;
 
 import com.kata.cinema.base.dao.abstracts.model.WatchlistDtoDao;
-import com.kata.cinema.base.dao.impl.dto.WatchlistDtoDaoImpl;
 import com.kata.cinema.base.models.dto.WatchlistDto;
 import com.kata.cinema.base.service.abstracts.WatchlistDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class WatchlistDtoServiceImpl extends AbstractServiceImpl<Long, WatchlistDto> implements WatchlistDtoService {
+public class WatchlistDtoServiceImpl implements WatchlistDtoService {
 
     @Autowired
     private final WatchlistDtoDao watchlistDtoDao;
 
-    public WatchlistDtoServiceImpl(WatchlistDtoDaoImpl watchlistDtoDao) {
-        super(watchlistDtoDao);
+    public WatchlistDtoServiceImpl(WatchlistDtoDao watchlistDtoDao) {
         this.watchlistDtoDao = watchlistDtoDao;
     }
 

@@ -10,24 +10,24 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class WatchlistDtoDaoImpl extends AbstractDaoImpl<Long, WatchlistDto> implements WatchlistDtoDao {
+public class WatchlistDtoDaoImpl implements WatchlistDtoDao {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<WatchlistDto> findAllWatchlistByUserId(Long userId){
-        return  entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto (" +
-                "w.id," +
-                "w.category," +
-                "w.privacy," +
-                "w.name," +
-                "w.description," +
-                "w.user.id) FROM Watchlist w where w.user.id = : userId ")
+    public List<WatchlistDto> findAllWatchlistByUserId(Long userId) {
+        return entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto (" +
+                        "w.id," +
+                        "w.category," +
+                        "w.privacy," +
+                        "w.name," +
+                        "w.description," +
+                        "w.user.id) FROM Watchlist w where w.user.id = : userId ")
                 .setParameter("userId", userId).getResultList();
     }
 
-    public WatchlistDto findWatchlistDtoById (Long id){
-        WatchlistDto watchlistDto =(WatchlistDto) entityManager.createQuery( "SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto (" +
+    public WatchlistDto findWatchlistDtoById(Long id) {
+        WatchlistDto watchlistDto = (WatchlistDto) entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto (" +
                         "w.id," +
                         "w.category," +
                         "w.privacy," +

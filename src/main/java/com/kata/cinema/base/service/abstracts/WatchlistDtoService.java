@@ -7,12 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface WatchlistDtoService extends AbstractService <Long, WatchlistDto>{
-
+public interface WatchlistDtoService {
 
 
     public List<WatchlistDto> findAllWatchlistByUserId(Long userId);
 
 
-    public WatchlistDto findWatchlistDtoById (Long id);
+    public WatchlistDto findWatchlistDtoById(Long id);
 }

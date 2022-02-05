@@ -1,8 +1,8 @@
 package com.kata.cinema.base.models.entity;
 
 
-import com.kata.cinema.base.models.Category;
-import com.kata.cinema.base.models.Privacy;
+import com.kata.cinema.base.models.enams.Category;
+import com.kata.cinema.base.models.enams.Privacy;
 import lombok.*;
 
 import javax.persistence.*;

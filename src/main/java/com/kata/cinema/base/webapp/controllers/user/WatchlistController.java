@@ -4,14 +4,13 @@ package com.kata.cinema.base.webapp.controllers.user;
 import com.kata.cinema.base.models.dto.WatchlistDto;
 import com.kata.cinema.base.service.impl.WatchlistDtoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/user/watchlist")
 public class WatchlistController {
 
 
@@ -22,16 +21,15 @@ public class WatchlistController {
         this.watchlistDtoService = watchlistDtoService;
     }
 
-    @GetMapping("/api/user/watchlist")
-    public List<WatchlistDto> getWatchlistByUserId( @RequestParam Long userId) {
-        return watchlistDtoService.findAllWatchlistByUserId(userId);
+    @GetMapping
+    public ResponseEntity<List<WatchlistDto>> getWatchlistByUserId(@RequestParam Long userId) {
+        return ResponseEntity.ok(watchlistDtoService.findAllWatchlistByUserId(userId));
     }
 
 
-    @GetMapping("/api/user/watchlist/{id}")
-    public WatchlistDto getWatсhlistById (@PathVariable Long id) {
-        return watchlistDtoService.findWatchlistDtoById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<WatchlistDto> getWatсhlistById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(watchlistDtoService.findWatchlistDtoById(id));
     }
-
 
 }
