@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp.controllers.manager;
+package com.kata.cinema.base.webapp.controllers.moderator;
 
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
@@ -6,7 +6,6 @@ import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,10 +15,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
-@RequestMapping("/api/manager/movie")
+@RequestMapping("/api/moderator/movie")
 @Validated
 @AllArgsConstructor
-public class ManagerMovieRestController {
+public class ModeratorMovieRestController {
     private final MovieDtoService movieDtoService;
     private final MovieService movieService;
     private final MovieMapper movieMapper;
