@@ -16,25 +16,26 @@ public class WatchlistDtoDaoImpl implements WatchlistDtoDao {
     private EntityManager entityManager;
 
     public List<WatchlistDto> findAllWatchlistByUserId(Long userId) {
-        return entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto (" +
+        return entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto(" +
                         "w.id," +
                         "w.category," +
                         "w.privacy," +
                         "w.name," +
                         "w.description," +
-                        "w.user.id) FROM Watchlist w where w.user.id = : userId ")
-                .setParameter("userId", userId).getResultList();
+                        "w.user.id) FROM Watchlist w where w.user.id = :userId", WatchlistDto.class)
+                .setParameter("userId", userId)
+                .getResultList();
     }
 
     public WatchlistDto findWatchlistDtoById(Long id) {
-        WatchlistDto watchlistDto = (WatchlistDto) entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto (" +
+        return entityManager.createQuery("SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto(" +
                         "w.id," +
                         "w.category," +
                         "w.privacy," +
                         "w.name," +
                         "w.description," +
-                        "w.user.id) FROM Watchlist w where w.id = : id ")
-                .setParameter("id", id).getSingleResult();
-        return watchlistDto;
+                        "w.user.id) FROM Watchlist w where w.id = :id", WatchlistDto.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }

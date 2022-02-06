@@ -1,7 +1,7 @@
 package com.kata.cinema.base.models.dto;
 
-import com.kata.cinema.base.models.enams.Category;
-import com.kata.cinema.base.models.enams.Privacy;
+import com.kata.cinema.base.models.enums.Category;
+import com.kata.cinema.base.models.enums.Privacy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

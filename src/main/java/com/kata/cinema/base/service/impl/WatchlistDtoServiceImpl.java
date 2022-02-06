@@ -11,13 +11,12 @@ import java.util.List;
 @Service
 public class WatchlistDtoServiceImpl implements WatchlistDtoService {
 
-    @Autowired
     private final WatchlistDtoDao watchlistDtoDao;
 
+    @Autowired
     public WatchlistDtoServiceImpl(WatchlistDtoDao watchlistDtoDao) {
         this.watchlistDtoDao = watchlistDtoDao;
     }
-
 
     public List<WatchlistDto> findAllWatchlistByUserId(Long userId) {
         return watchlistDtoDao.findAllWatchlistByUserId(userId);

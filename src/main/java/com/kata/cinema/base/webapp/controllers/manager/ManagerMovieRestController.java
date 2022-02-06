@@ -5,6 +5,7 @@ import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +18,11 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/api/manager/movie")
 @Validated
+@AllArgsConstructor
 public class ManagerMovieRestController {
     private final MovieDtoService movieDtoService;
     private final MovieService movieService;
     private final MovieMapper movieMapper;
-
-    @Autowired
-    public ManagerMovieRestController(MovieDtoService movieDtoService, MovieService movieService, MovieMapper movieMapper) {
-        this.movieDtoService = movieDtoService;
-        this.movieService = movieService;
-        this.movieMapper = movieMapper;
-    }
 
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
