@@ -1,7 +1,6 @@
 package com.kata.cinema.base.dao.abstracts.dto;
 
 import com.kata.cinema.base.models.dto.NewsDto;
-import com.kata.cinema.base.models.entity.News;
 import com.kata.cinema.base.models.enums.Rubric;
 
 import java.time.LocalDateTime;

@@ -1,14 +1,12 @@
-package com.kata.cinema.base.mappers;
+package com.kata.cinema.base.mapper;
 
 import com.kata.cinema.base.models.dto.NewsDto;
 import com.kata.cinema.base.models.entity.News;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 
 @Mapper
+@Component
 public interface NewsMapper {
-
-    NewsMapper INSTANCE = Mappers.getMapper(NewsMapper.class);
-
     News toEntity(NewsDto newsDto);
 }
