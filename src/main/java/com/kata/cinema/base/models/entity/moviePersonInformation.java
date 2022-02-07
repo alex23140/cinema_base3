@@ -23,7 +23,6 @@ public class moviePersonInformation {
     @Getter
     @Setter
     @NoArgsConstructor
-    @Entity
     @Embeddable
     private class Id implements Serializable {
         @Column(name = "person_id")
