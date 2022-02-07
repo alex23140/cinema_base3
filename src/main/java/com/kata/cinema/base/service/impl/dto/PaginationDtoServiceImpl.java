@@ -6,10 +6,11 @@ import com.kata.cinema.base.service.abstracts.dto.PaginationDtoService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class PaginationDtoServiceImpl<T> implements PaginationDtoService<T> {
+public abstract class PaginationDtoServiceImpl<T> implements PaginationDtoService<T> {
 
     private final PaginationDtoDao<T> tPaginationDtoDao;
 
@@ -19,13 +20,15 @@ public class PaginationDtoServiceImpl<T> implements PaginationDtoService<T> {
 
     @Override
     public PageDto<T> getPageDto(Integer currentPage, Integer itemsOnPage) {
-        return null;
-                // return new PageDto<T>( tPaginationDtoDao.getResultTotal(parameters) ,
-                //                tPaginationDtoDao.getItemsDto(currentPage,itemsOnPage, parameters)  );
+   //   return null;
+//                 return new PageDto<T>( tPaginationDtoDao.getResultTotal(parameters) ,
+//                                tPaginationDtoDao.getItemsDto(currentPage,itemsOnPage, parameters)  );
+
+        return getPageDtoWithParameters(currentPage,itemsOnPage, new HashMap<>());
     }
 
     @Override
-    public Page<T> getPageDtoWithParameters(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
+    public PageDto<T> getPageDtoWithParameters(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
         return null;
     }
 }
