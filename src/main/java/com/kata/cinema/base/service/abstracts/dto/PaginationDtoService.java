@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.Map;
 
-public interface PaginationDtoService<T> {
+public interface PaginationDtoService<T>  {
     PageDto<T> getPageDto(Integer currentPage, Integer itemsOnPage);
-    Page<T> getPageDtoWithParameters(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters);
+    PageDto<T> getPageDtoWithParameters(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters);
 }

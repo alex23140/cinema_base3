@@ -1,11 +1,14 @@
 package com.kata.cinema.base.dao.impl.dto;
 
 import com.kata.cinema.base.dao.abstracts.dto.MovieDtoDao;
+import com.kata.cinema.base.dao.abstracts.dto.PaginationDtoDao;
 import com.kata.cinema.base.models.dto.MovieDto;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class MovieDtoDaoImpl implements MovieDtoDao {
@@ -31,5 +34,15 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
                         """, MovieDto.class)
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<MovieDto> getItemsDto(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
+        return null;
+    }
+
+    @Override
+    public Long getResultTotal(Map<String, Object> parameters) {
+        return null;
     }
 }

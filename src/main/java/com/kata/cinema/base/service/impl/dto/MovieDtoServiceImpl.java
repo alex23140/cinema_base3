@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovieDtoServiceImpl implements MovieDtoService {
+public class MovieDtoServiceImpl extends PaginationDtoServiceImpl<MovieDto> implements MovieDtoService {
     private final MovieDtoDao movieDtoDao;
 
     @Autowired
     public MovieDtoServiceImpl(MovieDtoDao movieDtoDao) {
+        super(movieDtoDao);
         this.movieDtoDao = movieDtoDao;
     }
 
