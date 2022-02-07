@@ -1,7 +1,6 @@
 package com.kata.cinema.base.service.abstracts.dto;
 
 import com.kata.cinema.base.models.dto.PageDto;
-import org.springframework.data.domain.Page;
 
 import java.util.Map;
 

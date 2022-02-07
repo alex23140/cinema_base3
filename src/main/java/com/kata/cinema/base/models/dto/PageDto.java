@@ -1,9 +1,7 @@
 package com.kata.cinema.base.models.dto;
 
 import lombok.*;
-
 import java.util.List;
-
 
 @Getter
 @Setter
