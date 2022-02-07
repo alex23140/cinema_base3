@@ -3,9 +3,6 @@ package com.kata.cinema.base.service.impl.dto;
 import com.kata.cinema.base.dao.abstracts.dto.PaginationDtoDao;
 import com.kata.cinema.base.models.dto.PageDto;
 import com.kata.cinema.base.service.abstracts.dto.PaginationDtoService;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,12 +17,12 @@ public abstract class PaginationDtoServiceImpl<T> implements PaginationDtoServic
 
     @Override
     public PageDto<T> getPageDto(Integer currentPage, Integer itemsOnPage) {
-        return getPageDtoWithParameters(currentPage,itemsOnPage, new HashMap<>());
+        return getPageDtoWithParameters(currentPage, itemsOnPage, new HashMap<>());
     }
 
     @Override
     public PageDto<T> getPageDtoWithParameters(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
-        return null;
-        // ?????
+        return new PageDto<T>(tPaginationDtoDao.getResultTotal(parameters),
+                tPaginationDtoDao.getItemsDto(currentPage, itemsOnPage, parameters));
     }
 }
