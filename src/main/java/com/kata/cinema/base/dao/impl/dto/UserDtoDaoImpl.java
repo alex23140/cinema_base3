@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 
 @Repository
 public class UserDtoDaoImpl implements UserDtoDao {
 
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     //TODO поменять наименование метода
     public UserDto toDto(long userId) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         return entityManager.createQuery("""
                         SELECT NEW com.kata.cinema.base.models.dto.UserDto(
                         u.id, 
@@ -29,7 +28,7 @@ public class UserDtoDaoImpl implements UserDtoDao {
                         u.birthday) 
                         FROM User u 
                         WHERE u.id= :id
-                        """ ,UserDto.class)
+                        """, UserDto.class)
                 .setParameter("id",userId)
                 .getSingleResult();
     }

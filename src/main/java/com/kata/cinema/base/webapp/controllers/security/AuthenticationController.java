@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
-@AllArgsConstructor
 @RequestMapping("/api")
 @Validated
+@AllArgsConstructor
 public class AuthenticationController {
 
     private final UserService userService;
