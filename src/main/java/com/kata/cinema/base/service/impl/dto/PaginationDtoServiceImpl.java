@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+
 public abstract class PaginationDtoServiceImpl<T> implements PaginationDtoService<T> {
 
     private final PaginationDtoDao<T> tPaginationDtoDao;
@@ -20,15 +20,12 @@ public abstract class PaginationDtoServiceImpl<T> implements PaginationDtoServic
 
     @Override
     public PageDto<T> getPageDto(Integer currentPage, Integer itemsOnPage) {
-   //   return null;
-//                 return new PageDto<T>( tPaginationDtoDao.getResultTotal(parameters) ,
-//                                tPaginationDtoDao.getItemsDto(currentPage,itemsOnPage, parameters)  );
-
         return getPageDtoWithParameters(currentPage,itemsOnPage, new HashMap<>());
     }
 
     @Override
     public PageDto<T> getPageDtoWithParameters(Integer currentPage, Integer itemsOnPage, Map<String, Object> parameters) {
         return null;
+        // ?????
     }
 }
