@@ -13,12 +13,11 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserRegistrationDto {
     @NotBlank
-    String email;
+    private String email;
     @NotBlank
-    String nickname;
-    String firstName;
-    String lastName;
+    private String nickname;
+    private String firstName;
+    private String lastName;
     @NotBlank
-    String password;
-
+    private String password;
 }

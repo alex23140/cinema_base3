@@ -29,19 +29,19 @@ public class Movie {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "year")
-    private LocalDate year;
+    @Column(name = "date_release")
+    private LocalDate dateRelease;
 
-    @Column(name = "age_rating")
-    private RARS ageRating;
+    @Column(name = "rars")
+    private RARS rars;
 
-    @Column(name = "film_rating")
-    private MPAA filmRating;
+    @Column(name = "mpaa")
+    private MPAA mpaa;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "preview_exist")
+    @Column(name = "preview_is_exist")
     private Boolean previewIsExist = false;
 
     @ManyToMany(fetch = FetchType.LAZY)

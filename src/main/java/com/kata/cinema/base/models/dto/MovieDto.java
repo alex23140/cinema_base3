@@ -1,10 +1,10 @@
 package com.kata.cinema.base.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kata.cinema.base.models.entity.Genre;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -14,16 +14,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "name"})
-@Component
 public class MovieDto {
     private Long id;
 
     @NotBlank
     private String name;
     private String country;
-    private LocalDate year;
-    private RARS ageRating;
-    private MPAA filmRating;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    private LocalDate dateRelease;
+
+    private RARS rars;
+    private MPAA mpaa;
     private String description;
     private Boolean previewIsExist = false;
 
