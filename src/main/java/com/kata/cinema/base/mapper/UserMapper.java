@@ -5,7 +5,6 @@ import com.kata.cinema.base.models.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-    UserDto toDto(User user);
-    User toEntity(UserDto user);
+public interface UserMapper extends AbstractMapper<UserDto, User> {
+
 }

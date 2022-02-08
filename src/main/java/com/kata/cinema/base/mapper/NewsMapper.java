@@ -5,6 +5,6 @@ import com.kata.cinema.base.models.entity.News;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface NewsMapper {
-    News toEntity(NewsDto newsDto);
+public interface NewsMapper extends AbstractMapper<NewsDto, News> {
+
 }
