@@ -4,7 +4,7 @@ import com.kata.cinema.base.models.dto.UserDto;
 import com.kata.cinema.base.models.entity.User;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     UserDto toDto(User user);
     User toEntity(UserDto user);
