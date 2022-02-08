@@ -16,7 +16,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "persons")
-public class Persons {
+public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,10 +24,10 @@ public class Persons {
     Long id;
 
     @Column(name = "first_name")
-    String first_name;
+    String firstName;
 
     @Column(name = "last_name")
-    String last_name;
+    String lastName;
 
     @Column(name = "growth")
     Double growth;
@@ -37,13 +37,12 @@ public class Persons {
     LocalDate birthday;
 
     @Column(name = "place_of_birth")
-    String place_of_birth;
+    String placeBirth;
 
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "person_profession",
-//            joinColumns = @JoinColumn(name = "person_id"),
-//            inverseJoinColumns = @JoinColumn(name = "profession_id"))
-//    Set<Professions> professions;
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "person_profession",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "profession_id"))
+    Set<Profession> professions;
 
 }
