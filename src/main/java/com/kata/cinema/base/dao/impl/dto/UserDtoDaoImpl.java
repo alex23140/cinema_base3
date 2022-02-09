@@ -2,10 +2,8 @@ package com.kata.cinema.base.dao.impl.dto;
 
 import com.kata.cinema.base.dao.abstracts.dto.UserDtoDao;
 import com.kata.cinema.base.models.dto.UserDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
 @Repository
@@ -16,7 +14,7 @@ public class UserDtoDaoImpl implements UserDtoDao {
 
     @Override
     //TODO поменять наименование метода
-    public UserDto toDto(long userId) {
+    public UserDto getById(long userId) {
         return entityManager.createQuery("""
                         SELECT NEW com.kata.cinema.base.models.dto.UserDto(
                         u.id, 
