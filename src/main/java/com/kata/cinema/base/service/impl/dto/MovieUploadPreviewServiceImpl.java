@@ -11,18 +11,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class MovieUploadPreviewServiceImpl implements MovieUploadPreviewService {
 
     private final MovieUploadPreview movieUploadPreview;
+
     @Autowired
     public MovieUploadPreviewServiceImpl(MovieUploadPreview movieUploadPreview) {
         this.movieUploadPreview = movieUploadPreview;
     }
 
     @Override
-    public String add(Long id, MultipartFile file) {
-        try {
-            return FileUtil.uploadFile(id,file);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public boolean add(Long id, MultipartFile file) {
+        return movieUploadPreview.add(id, file);
     }
 }

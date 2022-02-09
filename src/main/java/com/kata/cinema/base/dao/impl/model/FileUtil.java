@@ -1,25 +1,19 @@
 package com.kata.cinema.base.dao.impl.model;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.expression.Lists;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class FileUtil {
 
-
     private static String dirpath= "/uploads/movies/preview";
 
+    public static boolean uploadFile(long id, MultipartFile file) throws Exception {
 
-    public static String uploadFile(long id, MultipartFile file) throws Exception {
         // Сначала проверяем формат изображения
         List<String> imageType = new ArrayList<>();
         imageType.add("jpg");
@@ -42,10 +36,10 @@ public class FileUtil {
             }
             try {
                 file.transferTo(destFile);
-                // Возвращаем имя загруженного файла
-                return newFileName;
+                // скачали и записали файл
+                return true;
             } catch (IOException e) {
-                return null;
+                return false;
             }
         } else {
             // недопустимый файл

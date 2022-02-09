@@ -49,12 +49,6 @@ public class ModeratorMovieRestController {
     public boolean upload(@PathVariable("id") Long id,
                          @RequestParam("file") MultipartFile file) throws IOException {
 
-//        BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
-//        File outputfile = new File("saved.png");
-//        ImageIO.write(bufferedImage, "png", outputfile);
-//        BufferedImage image = ImageIO.read(new File("saved.png"));
-
-
         return movieUploadPreview.add(id,file);
     }
 }
