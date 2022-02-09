@@ -1,5 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.moderator;
 
+
+import com.kata.cinema.base.dao.abstracts.dto.MovieUploadPreview;
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.entity.Movie;
@@ -10,9 +12,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import javax.xml.transform.Result;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/moderator/movie")
@@ -22,6 +29,9 @@ public class ModeratorMovieRestController {
     private final MovieDtoService movieDtoService;
     private final MovieService movieService;
     private final MovieMapper movieMapper;
+
+    private final MovieUploadPreview movieUploadPreview;
+
 
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
@@ -33,5 +43,18 @@ public class ModeratorMovieRestController {
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(movieDtoService.getById(id));
+    }
+
+    @RequestMapping(value = "{id}/uploadPreview", method = RequestMethod.POST)
+    public boolean upload(@PathVariable("id") Long id,
+                         @RequestParam("file") MultipartFile file) throws IOException {
+
+//        BufferedImage bufferedImage = ImageIO.read(file.getInputStream());
+//        File outputfile = new File("saved.png");
+//        ImageIO.write(bufferedImage, "png", outputfile);
+//        BufferedImage image = ImageIO.read(new File("saved.png"));
+
+
+        return movieUploadPreview.add(id,file);
     }
 }
