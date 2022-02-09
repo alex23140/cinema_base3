@@ -36,6 +36,11 @@ public class FileUtil {
             }
             try {
                 file.transferTo(destFile);
+
+
+
+
+
                 // скачали и записали файл
                 return true;
             } catch (IOException e) {
