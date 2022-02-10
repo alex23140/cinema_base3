@@ -24,7 +24,7 @@ public class ModeratorMovieRestController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
-    @ApiOperation(value = "Создание Movie", notes = "Создание Movie")
+    @ApiOperation(value = "Создание Movie", notes = "Создание Movie", response = MovieDto.class)
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
         Movie movie = movieMapper.toEntity(movieDto);
@@ -32,7 +32,7 @@ public class ModeratorMovieRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie));
     }
 
-    @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id")
+    @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(movieDtoService.getById(id));

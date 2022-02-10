@@ -19,13 +19,13 @@ import java.util.List;
 public class UserWatchlistRestController {
     private final WatchlistDtoService watchlistDtoService;
 
-    @ApiOperation(value = "получить список Watchlist", notes = "получить список пользователей Watchlist")
+    @ApiOperation(value = "получить список Watchlist", notes = "получить список пользователей Watchlist", responseContainer = "list", response = WatchlistDto.class)
     @GetMapping
     public ResponseEntity<List<WatchlistDto>> getWatchlistByUserId(@Positive @RequestParam Long userId) {
         return ResponseEntity.ok(watchlistDtoService.findAllWatchlistByUserId(userId));
     }
 
-    @ApiOperation(value = "получить Watchlist по id", notes = "получить Watchlist по id")
+    @ApiOperation(value = "получить Watchlist по id", notes = "получить Watchlist по id", response = WatchlistDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<WatchlistDto> getWatchlistById(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok(watchlistDtoService.findWatchlistDtoById(id));

@@ -1,4 +1,4 @@
-package com.kata.cinema.base.config;
+package com.kata.cinema.base.webapp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
