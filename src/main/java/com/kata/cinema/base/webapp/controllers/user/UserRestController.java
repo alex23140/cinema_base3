@@ -41,6 +41,6 @@ public class UserRestController {
     @ApiOperation(value = "Получение User по id", notes = "Получение User по id")
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@Positive @PathVariable("id") long id){
-        return ResponseEntity.ok(userDtoDao.toDto(id));
+        return ResponseEntity.ok(userDtoDao.getById(id));
     }
 }

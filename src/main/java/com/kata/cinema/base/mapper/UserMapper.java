@@ -3,11 +3,8 @@ package com.kata.cinema.base.mapper;
 import com.kata.cinema.base.models.dto.UserDto;
 import com.kata.cinema.base.models.entity.User;
 import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
-@Component
-public interface UserMapper {
-    UserDto toDto(User user);
-    User toEntity(UserDto user);
+public interface UserMapper extends AbstractMapper<UserDto, User> {
+
 }
