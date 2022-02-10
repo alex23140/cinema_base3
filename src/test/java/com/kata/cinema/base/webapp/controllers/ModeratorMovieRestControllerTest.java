@@ -70,7 +70,7 @@ public class ModeratorMovieRestControllerTest {
     }
 
     @Test
-    //@DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldCreateMovie() throws Exception {
         //создаем сущность (без id)
         MovieDto movieDto = new MovieDto();
