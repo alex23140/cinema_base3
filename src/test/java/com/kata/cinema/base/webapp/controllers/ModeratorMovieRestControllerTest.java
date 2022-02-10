@@ -16,6 +16,7 @@ import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -48,6 +49,9 @@ public class ModeratorMovieRestControllerTest {
     @Autowired
     private MovieDtoService movieDtoService;
 
+    @Autowired
+    private ObjectMapper objectAsJsonMapper;
+
     @Test
     @DatabaseSetup(value = "/dataset/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
     @DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
@@ -66,7 +70,7 @@ public class ModeratorMovieRestControllerTest {
     }
 
     @Test
-    @DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    //@DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldCreateMovie() throws Exception {
         //создаем сущность (без id)
         MovieDto movieDto = new MovieDto();
@@ -77,12 +81,11 @@ public class ModeratorMovieRestControllerTest {
         movieDto.setRars(RARS.EIGHTEEN_PLUS);
         movieDto.setMpaa(MPAA.GENERAL_AUDIENCES);
         movieDto.setPreviewIsExist(true);
-        String movieAsJson = getMovieAsJson(movieDto);
 
         //постим сущность и получаем ее id
         int id = JsonPath.read(this.mockMvc.perform(post("/api/moderator/movie")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(movieAsJson))
+                        .content(objectAsJsonMapper.writeValueAsString(movieDto)))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString(), "$.id");
 
@@ -92,13 +95,6 @@ public class ModeratorMovieRestControllerTest {
         assertThat(movieDto)
                 .usingRecursiveComparison()
                 .isEqualTo(movieFromDb);
-    }
-
-    private String getMovieAsJson(MovieDto movieDto) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        return mapper.writeValueAsString(movieDto);
     }
 }
 
