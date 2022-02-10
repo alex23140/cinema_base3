@@ -12,6 +12,9 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -26,6 +29,9 @@ public class CinemaBaseApplicationTests {
 
     @Autowired
     private ModeratorMovieRestController moderatorMovieRestController;
+
+    @PersistenceContext
+    protected EntityManager entityManager;
 
     @Test
     void contextLoads() {

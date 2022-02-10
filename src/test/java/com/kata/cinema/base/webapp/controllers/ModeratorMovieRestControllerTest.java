@@ -5,9 +5,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.jayway.jsonpath.JsonPath;
 import com.kata.cinema.base.models.dto.MovieDto;
-import com.kata.cinema.base.models.enums.MPAA;
-import com.kata.cinema.base.models.enums.RARS;
-import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDate;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -31,9 +26,6 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private MovieDtoService movieDtoService;
 
     @Test
     @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
@@ -55,29 +47,23 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
     @Test
     @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldCreateMovie() throws Exception {
-        //создаем сущность (без id)
+        //создаем
         MovieDto movieDto = new MovieDto();
         movieDto.setName("movie1");
-        movieDto.setCountry("rus1");
-        movieDto.setDateRelease(LocalDate.of(2020, 10, 10));
-        movieDto.setDescription("test1");
-        movieDto.setRars(RARS.EIGHTEEN_PLUS);
-        movieDto.setMpaa(MPAA.GENERAL_AUDIENCES);
-        movieDto.setPreviewIsExist(true);
 
-        //постим сущность и получаем ее id
+        //постим
         int id = JsonPath.read(this.mockMvc.perform(post("/api/moderator/movie")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectAsJsonMapper.writeValueAsString(movieDto)))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString(), "$.id");
 
-        //сравниваем отправленную и полученную сущности
-        movieDto.setId((long) id);
-        MovieDto movieFromDb = movieDtoService.getById((long) id);
-        assertThat(movieDto)
-                .usingRecursiveComparison()
-                .isEqualTo(movieFromDb);
+        //проверяем, что запостилось
+        int count = ((Number) entityManager.createQuery("SELECT COUNT(*) FROM Movie m WHERE m.id= :id")
+                .setParameter("id", (long) id)
+                .getSingleResult())
+                .intValue();
+        assertTrue(count > 0);
     }
 }
 
