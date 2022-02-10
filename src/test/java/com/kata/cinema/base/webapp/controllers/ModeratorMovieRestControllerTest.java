@@ -36,8 +36,8 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
     private MovieDtoService movieDtoService;
 
     @Test
-    @DatabaseSetup(value = "/dataset/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldReturnMovie() throws Exception {
         this.mockMvc.perform(get("/api/moderator/movie/1"))
                 .andExpect(status().isOk())
@@ -53,7 +53,7 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
     }
 
     @Test
-    @DatabaseTearDown(value = "/dataset/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldCreateMovie() throws Exception {
         //создаем сущность (без id)
         MovieDto movieDto = new MovieDto();
