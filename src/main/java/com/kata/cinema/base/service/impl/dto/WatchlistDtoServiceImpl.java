@@ -1,8 +1,8 @@
-package com.kata.cinema.base.service.impl;
+package com.kata.cinema.base.service.impl.dto;
 
 import com.kata.cinema.base.dao.abstracts.model.WatchlistDtoDao;
 import com.kata.cinema.base.models.dto.WatchlistDto;
-import com.kata.cinema.base.service.abstracts.WatchlistDtoService;
+import com.kata.cinema.base.service.abstracts.dto.WatchlistDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

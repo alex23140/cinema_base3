@@ -1,9 +1,6 @@
-package com.kata.cinema.base.service.abstracts;
+package com.kata.cinema.base.service.abstracts.dto;
 
 import com.kata.cinema.base.models.dto.WatchlistDto;
-import com.kata.cinema.base.models.entity.User;
-import com.kata.cinema.base.service.impl.WatchlistDtoServiceImpl;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
