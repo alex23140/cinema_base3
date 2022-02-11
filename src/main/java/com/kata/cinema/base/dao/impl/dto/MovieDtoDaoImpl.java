@@ -24,9 +24,9 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
                         m.id,
                         m.name,
                         m.country,
-                        m.year,
-                        m.ageRating,
-                        m.filmRating,
+                        m.dateRelease,
+                        m.rars,
+                        m.mpaa,
                         m.description,
                         m.previewIsExist)
                         FROM Movie m
