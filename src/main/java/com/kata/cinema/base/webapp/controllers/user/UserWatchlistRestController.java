@@ -2,7 +2,7 @@ package com.kata.cinema.base.webapp.controllers.user;
 
 
 import com.kata.cinema.base.models.dto.WatchlistDto;
-import com.kata.cinema.base.service.abstracts.WatchlistDtoService;
+import com.kata.cinema.base.service.abstracts.dto.WatchlistDtoService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

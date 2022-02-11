@@ -19,23 +19,23 @@ public class Watchlist {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    Long id;
+    private Long id;
 
     @Column(name = "category")
-    Category category ;
+    private Category category ;
 
     @Column(name = "privacy")
-    Privacy privacy ;
+    private Privacy privacy ;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "description")
-    String description;
+    private String description;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    User user;
+    private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "watchlist_movie",
