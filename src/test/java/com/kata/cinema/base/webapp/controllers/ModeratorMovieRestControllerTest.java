@@ -7,11 +7,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,12 +16,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests {
 
-    @Autowired
-    private MockMvc mockMvc;
 
     @Test
     @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
@@ -54,12 +46,12 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
         //постим
         int id = JsonPath.read(this.mockMvc.perform(post("/api/moderator/movie")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectAsJsonMapper.writeValueAsString(movieDto)))
+                        .content(objectMapper.writeValueAsString(movieDto)))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString(), "$.id");
 
         //проверяем, что запостилось
-        int count = ((Number) entityManager.createQuery("SELECT COUNT(*) FROM Movie m WHERE m.id= :id")
+        int count = ((Number) entityManager.createQuery("SELECT COUNT(m) FROM Movie m WHERE m.id = :id")
                 .setParameter("id", (long) id)
                 .getSingleResult())
                 .intValue();
