@@ -9,9 +9,7 @@ import java.util.List;
 
 public interface WatchlistDtoService {
 
+    List<WatchlistDto> findAllWatchlistByUserId(Long userId);
 
-    public List<WatchlistDto> findAllWatchlistByUserId(Long userId);
-
-
-    public WatchlistDto findWatchlistDtoById(Long id);
+    WatchlistDto findWatchlistDtoById(Long id);
 }

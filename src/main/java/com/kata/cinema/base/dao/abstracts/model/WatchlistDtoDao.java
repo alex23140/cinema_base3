@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface WatchlistDtoDao {
 
-    public List<WatchlistDto> findAllWatchlistByUserId(Long userId);
+    List<WatchlistDto> findAllWatchlistByUserId(Long userId);
 
-    public WatchlistDto findWatchlistDtoById(Long id);
+    WatchlistDto findWatchlistDtoById(Long id);
 }

@@ -12,8 +12,9 @@ import java.util.Map;
 
 @Repository
 public class MovieDtoDaoImpl implements MovieDtoDao {
+
     @PersistenceContext
-    protected EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     //TODO обернуться в optional

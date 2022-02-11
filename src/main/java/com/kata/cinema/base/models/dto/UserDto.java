@@ -1,5 +1,6 @@
 package com.kata.cinema.base.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 
@@ -12,13 +13,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UserDto {
     @NotBlank
-    Long id;
+    private Long id;
     @NotBlank
-    String email;
+    private String email;
     @NotBlank
-    String nickname;
-    String firstName;
-    String lastName;
-    String password;
-    LocalDate birthday;
+    private String nickname;
+    private String firstName;
+    private String lastName;
+    private String password;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    private LocalDate birthday;
 }

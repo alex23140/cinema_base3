@@ -1,11 +1,12 @@
-package com.kata.cinema.base.webapp.controllers.manager;
+package com.kata.cinema.base.webapp.controllers.moderator;
 
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,20 +16,15 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
-@RequestMapping("/api/manager/movie")
+@RequestMapping("/api/moderator/movie")
 @Validated
-public class ManagerMovieRestController {
+@AllArgsConstructor
+public class ModeratorMovieRestController {
     private final MovieDtoService movieDtoService;
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
-    @Autowired
-    public ManagerMovieRestController(MovieDtoService movieDtoService, MovieService movieService, MovieMapper movieMapper) {
-        this.movieDtoService = movieDtoService;
-        this.movieService = movieService;
-        this.movieMapper = movieMapper;
-    }
-
+    @ApiOperation(value = "Создание Movie", notes = "Создание Movie", response = MovieDto.class)
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
         Movie movie = movieMapper.toEntity(movieDto);
@@ -36,6 +32,7 @@ public class ManagerMovieRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie));
     }
 
+    @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(movieDtoService.getById(id));
