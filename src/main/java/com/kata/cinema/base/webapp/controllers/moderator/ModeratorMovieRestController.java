@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.moderator;
 
 
-import com.kata.cinema.base.dao.abstracts.dto.MovieUploadPreview;
+import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.entity.Movie;
@@ -17,9 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import javax.xml.transform.Result;
 
-import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/moderator/movie")
@@ -29,9 +28,7 @@ public class ModeratorMovieRestController {
     private final MovieDtoService movieDtoService;
     private final MovieService movieService;
     private final MovieMapper movieMapper;
-
-    private final MovieUploadPreview movieUploadPreview;
-
+    private final MovieDao movieDao;
 
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
@@ -46,9 +43,35 @@ public class ModeratorMovieRestController {
     }
 
     @RequestMapping(value = "{id}/uploadPreview", method = RequestMethod.POST)
-    public boolean upload(@PathVariable("id") Long id,
-                         @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<MovieDto> upload(@PathVariable("id") Long id,
+                                           @RequestParam("file") MultipartFile file) {
 
-        return movieUploadPreview.add(id,file);
+        // нет такой записи в базе
+        if (!movieDao.isExistById(id)) {
+            //  return false;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+        }
+        //путь пустой
+        if (file.isEmpty()) {
+            // return false;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+        }
+
+        if (movieService.MovieUploadPreview(id, file)) {
+            //обновляем запись
+            Optional<Movie> movie = movieDao.getById(id);
+            movie.get().setPreviewIsExist(true);
+            movieDao.update(movie.get());
+
+            // сохранили изображение и изменили PreviewIsExist
+             return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie.get()));
+        }else{
+            // случай когда
+            // 1 ошибка при сохранении
+            // 2 недопустимый файл
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+        }
+
+
     }
 }
