@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.resources;
 
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +31,9 @@ public class ResourcesController {
     public ResponseEntity<Resource> downloadJpg2(HttpServletRequest request) throws Exception {
 
             String str = httpServletRequestToString(request);
+
+        @Value("${uploads_movies_preview}")
+        private static String dirpath;
 
 
 
