@@ -26,14 +26,16 @@ import java.io.IOException;
 @AllArgsConstructor
 public class ResourcesController {
 
+    @Value("${uploads_movies_preview}")
+    private static String dirpath;
+
 
     @GetMapping("/uploads/**")
     public ResponseEntity<Resource> downloadJpg2(HttpServletRequest request) throws Exception {
 
             String str = httpServletRequestToString(request);
 
-        @Value("${uploads_movies_preview}")
-        private static String dirpath;
+
 
 
 
@@ -55,7 +57,7 @@ public class ResourcesController {
 
         return stringBuilder.toString();
     }
-
+/*
     @RequestMapping(value = "/uploads/{jpgName}", method = RequestMethod.GET)
       public ResponseEntity<Resource> downloadJpg(
             @PathVariable String jpgName) throws IOException {
@@ -81,6 +83,6 @@ public class ResourcesController {
         headers.setContentDispositionFormData("attachment", jpgName);
 
         return new ResponseEntity<>(downloadResource, headers, HttpStatus.OK);
-    }
+    }/**/
 }
 
