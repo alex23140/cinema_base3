@@ -5,7 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.jayway.jsonpath.JsonPath;
 import com.kata.cinema.base.models.dto.MovieDto;
-import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
+import com.kata.cinema.base.webapp.controllers.CinemaBaseApplicationTests;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;

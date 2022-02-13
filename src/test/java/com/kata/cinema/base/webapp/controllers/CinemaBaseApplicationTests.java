@@ -1,4 +1,4 @@
-package com.kata.cinema.base.webapp;
+package com.kata.cinema.base.webapp.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
