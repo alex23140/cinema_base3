@@ -3,7 +3,6 @@ package com.kata.cinema.base.webapp.controllers.resources;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +24,10 @@ public class ResourcesController {
     private static String dirpath;
 
 
-    @GetMapping("/uploads/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE} )
+    @GetMapping(value = "/uploads/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE} )
     public ResponseEntity<byte[]> downloadJpg2(HttpServletRequest request) throws Exception {
 
-        String strFile = httpServletRequestToString(request);
+        String strFile = request.toString();
 
         File fileName = new File(strFile);
 
