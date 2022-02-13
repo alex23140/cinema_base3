@@ -21,28 +21,28 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    Long id;
+    private Long id;
 
     @Column(name = "first_name")
-    String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
-    String lastName;
+    private String lastName;
 
     @Column(name = "growth")
-    Double growth;
+    private Double growth;
 
     @Column(name = "birthday")
     @Type(type = "org.hibernate.type.LocalDateType")
-    LocalDate birthday;
+    private LocalDate birthday;
 
     @Column(name = "place_of_birth")
-    String placeBirth;
+    private String placeBirth;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "person_profession",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "profession_id"))
-    Set<Profession> professions;
+    private Set<Profession> professions;
 
 }
