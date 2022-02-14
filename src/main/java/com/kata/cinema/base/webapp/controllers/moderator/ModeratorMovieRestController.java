@@ -42,36 +42,37 @@ public class ModeratorMovieRestController {
         return ResponseEntity.ok().body(movieDtoService.getById(id));
     }
 
-    @RequestMapping(value = "{id}/uploadPreview", method = RequestMethod.POST)
-    public ResponseEntity<MovieDto> upload(@PathVariable("id") Long id,
+    @PostMapping("{id}/uploadPreview")
+     public ResponseEntity<MovieDto> upload(@PathVariable("id") Long id,
                                            @RequestParam("file") MultipartFile file) {
 
-        // нет такой записи в базе
         if (!movieDao.isExistById(id)) {
-            //  return false;
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
         }
-        //путь пустой
         if (file.isEmpty()) {
-            // return false;
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
         }
 
-        if (movieService.MovieUploadPreview(id, file)) {
-            //обновляем запись
-            Optional<Movie> movie = movieDao.getById(id);
-            movie.get().setPreviewIsExist(true);
-            movieDao.update(movie.get());
+        try {
+            if (movieService.MovieUploadPreview(id, file)) {
 
-            // сохранили изображение и изменили PreviewIsExist
-             return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie.get()));
-        }else{
-            // случай когда
-            // 1 ошибка при сохранении
-            // 2 недопустимый файл
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+                Optional<Movie> movie = movieDao.getById(id);
+                movie.get().setPreviewIsExist(true);
+                movieDao.update(movie.get());
+
+                // сохранили изображение и изменили PreviewIsExist
+                 return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie.get()));
+            }else{
+                // случай когда
+                // 1 ошибка при сохранении
+                // 2 недопустимый файл
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
+        return null;
     }
 }

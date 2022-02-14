@@ -16,7 +16,7 @@ public class FileUtil {
     private static String dirpath;
 
 
-    public static boolean uploadFile(long id, MultipartFile file) {
+    public static boolean uploadFile(long id, MultipartFile file) throws Exception {
 
         // Сначала проверяем формат изображения
         List<String> imageType = new ArrayList<>();
@@ -31,29 +31,25 @@ public class FileUtil {
         // Получаем суффиксный формат файла
         String fileSuffix = originalFilename.substring(originalFilename.lastIndexOf(".") + 1).toLowerCase();
         if (imageType.contains(fileSuffix)) {
-            // Создаем путь где будет храниться, скаченный файл
-            // каталог  id . fileSuffix
+
             String newFileName = id + "." + fileSuffix;
             String path = File.separator + newFileName;
             File destFile = new File(dirpath + path);
-            // проверяем
-            // если папка не существует, то создаем
+
             if (!destFile.getParentFile().exists()) {
                 destFile.getParentFile().mkdirs();
             }
+
             try {
                 file.transferTo(destFile);
-                // скачали и записали файл
-                return true;
             } catch (IOException e) {
-                // ошибка при сохранении
-                return false;
+                e.printStackTrace();
             }
+
         } else {
-            // недопустимый файл
-            //throw new Exception("the picture's suffix is illegal");
-            return false;
+            throw new Exception("the picture's suffix is illegal");
         }
+        return  true;
     }
 
 }

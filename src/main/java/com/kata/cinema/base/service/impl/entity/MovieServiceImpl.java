@@ -19,7 +19,7 @@ public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implement
     }
 
     @Override
-    public boolean MovieUploadPreview(Long id, MultipartFile file) {
+    public boolean MovieUploadPreview(Long id, MultipartFile file) throws Exception {
         return FileUtil.uploadFile(id, file);
     }
 }
