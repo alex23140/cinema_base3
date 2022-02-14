@@ -5,6 +5,8 @@ import com.kata.cinema.base.models.dto.UserDto;
 import com.kata.cinema.base.service.abstracts.dto.UserDtoDaoService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserDtoDaoServiceImpl implements UserDtoDaoService {
 
@@ -15,7 +17,7 @@ public class UserDtoDaoServiceImpl implements UserDtoDaoService {
     }
 
     @Override
-    public UserDto getById(long userId) {
+    public Optional<UserDto> getById(long userId) {
         return userDtoDao.getById(userId);
     }
 }

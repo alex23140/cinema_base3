@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/moderator/movie")
@@ -35,6 +36,6 @@ public class ModeratorMovieRestController {
     @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
-        return ResponseEntity.ok().body(movieDtoService.getById(id));
+        return ResponseEntity.ok().body(movieDtoService.getById(id).get());
     }
 }
