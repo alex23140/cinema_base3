@@ -6,6 +6,8 @@ import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MovieDtoServiceImpl extends PaginationDtoServiceImpl<MovieDto> implements MovieDtoService {
     private final MovieDtoDao movieDtoDao;
@@ -17,7 +19,7 @@ public class MovieDtoServiceImpl extends PaginationDtoServiceImpl<MovieDto> impl
     }
 
     @Override
-    public MovieDto getById(Long id) {
+    public Optional<MovieDto> getById(Long id) {
         return movieDtoDao.getById(id);
     }
 }
