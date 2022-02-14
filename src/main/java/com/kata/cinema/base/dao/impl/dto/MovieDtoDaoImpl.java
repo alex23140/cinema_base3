@@ -6,9 +6,11 @@ import com.kata.cinema.base.models.dto.MovieDto;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public class MovieDtoDaoImpl implements MovieDtoDao {
@@ -17,23 +19,26 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
     private EntityManager entityManager;
 
     @Override
-    //TODO обернуться в optional
-    public MovieDto getById(Long id) {
-        return entityManager.createQuery("""
-                        SELECT NEW com.kata.cinema.base.models.dto.MovieDto(
-                        m.id,
-                        m.name,
-                        m.country,
-                        m.year,
-                        m.ageRating,
-                        m.filmRating,
-                        m.description,
-                        m.previewIsExist)
-                        FROM Movie m
-                        WHERE m.id= :id
-                        """, MovieDto.class)
-                .setParameter("id", id)
-                .getSingleResult();
+    public Optional<MovieDto> getById(Long id) {
+        try {
+            return Optional.of(entityManager.createQuery("""
+                            SELECT NEW com.kata.cinema.base.models.dto.MovieDto(
+                            m.id,
+                            m.name,
+                            m.country,
+                            m.dateRelease,
+                            m.rars,
+                            m.mpaa,
+                            m.description,
+                            m.previewIsExist)
+                            FROM Movie m
+                            WHERE m.id= :id
+                            """, MovieDto.class)
+                    .setParameter("id", id)
+                    .getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

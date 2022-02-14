@@ -1,12 +1,13 @@
-package com.kata.cinema.base.service.impl;
+package com.kata.cinema.base.service.impl.dto;
 
 import com.kata.cinema.base.dao.abstracts.model.WatchlistDtoDao;
 import com.kata.cinema.base.models.dto.WatchlistDto;
-import com.kata.cinema.base.service.abstracts.WatchlistDtoService;
+import com.kata.cinema.base.service.abstracts.dto.WatchlistDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WatchlistDtoServiceImpl implements WatchlistDtoService {
@@ -22,7 +23,7 @@ public class WatchlistDtoServiceImpl implements WatchlistDtoService {
         return watchlistDtoDao.findAllWatchlistByUserId(userId);
     }
 
-    public WatchlistDto findWatchlistDtoById(Long id) {
+    public Optional<WatchlistDto> findWatchlistDtoById(Long id) {
         return watchlistDtoDao.findWatchlistDtoById(id);
     }
 }
