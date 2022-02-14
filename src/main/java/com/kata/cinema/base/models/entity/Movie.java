@@ -32,9 +32,11 @@ public class Movie {
     @Column(name = "date_release")
     private LocalDate dateRelease;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "rars")
     private RARS rars;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "mpaa")
     private MPAA mpaa;
 
