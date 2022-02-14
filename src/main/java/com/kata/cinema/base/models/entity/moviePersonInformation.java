@@ -7,32 +7,55 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id"})
 @Entity
+@Embeddable
+@EqualsAndHashCode(of = {"id"})
 @Table(name = "movie_person")
-public class moviePersonInformation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    Long id;
+public class MoviePersonInformation {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id")
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Embeddable
+    @EqualsAndHashCode(of = {"personId", "movieId"})
+    private class Id implements Serializable {
+
+        @Column(name = "person_id")
+        private Long personId;
+
+        @Column(name = "movie_id")
+        private Long movieId;
+
+        public Id(Long personId, Long movieId) {
+            this.personId = personId;
+            this.movieId = movieId;
+        }
+    }
+
+    @EmbeddedId
+    private Id id;
+
+    @ManyToOne(targetEntity = Person.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id", insertable = false, updatable = false)
+    private Person person;
+
+    @ManyToOne(targetEntity = Movie.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
     private Movie movie;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "person_id")
-    private Persons persons;
-
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "movie_person_of_profession",
-//            joinColumns = @JoinColumn(name = "movie_id"),
-//            inverseJoinColumns = @JoinColumn(name = "profession_id")
-//    )
-//    Set<Professions> professions;
-
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @JoinTable(name = "movie_person_to_profession",
+            joinColumns = {@JoinColumn(name = "person_id", insertable = false, updatable = false),
+                    @JoinColumn(name = "movie_id", insertable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "profession_id")})
+    private Set<Profession> professions;
 }

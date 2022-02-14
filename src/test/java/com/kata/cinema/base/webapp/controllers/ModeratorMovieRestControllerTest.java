@@ -1,32 +1,44 @@
 package com.kata.cinema.base.webapp.controllers;
 
-import com.github.springtestdbunit.annotation.DatabaseOperation;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DatabaseTearDown;
-import com.jayway.jsonpath.JsonPath;
-import com.kata.cinema.base.models.dto.MovieDto;
-import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.TestExecutionListeners;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests {
+@SpringBootTest
+@AutoConfigureMockMvc
+@RunWith(SpringJUnit4ClassRunner.class)
+@TestExecutionListeners({
+        DependencyInjectionTestExecutionListener.class,
+        DbUnitTestExecutionListener.class
+})
+public class ModeratorMovieRestControllerTest {
 
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup("/dataset/movie.xml")
     public void shouldReturnMovie() throws Exception {
-        this.mockMvc.perform(get("/api/moderator/movie/1"))
+        this.mockMvc.perform(get("/api/moderator/movie/2"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("movie2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.country").value("rus2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dateRelease").value("10.10.2020"))
@@ -35,27 +47,4 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
                 .andExpect(MockMvcResultMatchers.jsonPath("$.previewIsExist").value("true"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("TWELVE_PLUS"));
     }
-
-    @Test
-    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
-    public void shouldCreateMovie() throws Exception {
-        //создаем
-        MovieDto movieDto = new MovieDto();
-        movieDto.setName("movie1");
-
-        //постим
-        int id = JsonPath.read(this.mockMvc.perform(post("/api/moderator/movie")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(movieDto)))
-                .andExpect(status().isCreated())
-                .andReturn().getResponse().getContentAsString(), "$.id");
-
-        //проверяем, что запостилось
-        int count = ((Number) entityManager.createQuery("SELECT COUNT(m) FROM Movie m WHERE m.id = :id")
-                .setParameter("id", (long) id)
-                .getSingleResult())
-                .intValue();
-        assertTrue(count > 0);
-    }
 }
-

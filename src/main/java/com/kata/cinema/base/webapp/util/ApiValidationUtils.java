@@ -11,13 +11,13 @@ public class ApiValidationUtils {
     }
 
     public static void requireTrue(boolean val, String errorMessage) {
-        if (val != true) {
+        if (!val) {
             throw new ConstraintViolationException(errorMessage, Collections.emptySet());
         }
     }
 
     public static void requireFalse(boolean val, String errorMessage) {
-        if (val != false) {
+        if (!val) {
             throw new ConstraintViolationException(errorMessage, Collections.emptySet());
         }
     }
