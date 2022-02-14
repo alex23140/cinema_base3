@@ -10,12 +10,12 @@ import javax.validation.ConstraintViolationException;
 @ControllerAdvice
 public class GlobalRestControllerExceptionHandler {
     @ExceptionHandler
-    public ResponseEntity globalException(Exception exception) {
-        return new ResponseEntity(exception.getStackTrace(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> globalException(Exception exception) {
+        return ResponseEntity.status(400).body(exception.getMessage());
     }
 
-    @ExceptionHandler
-    public ResponseEntity constraintViolationException(ConstraintViolationException exception) {
-        return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> constraintViolationException(ConstraintViolationException exception) {
+        return ResponseEntity.status(400).body(exception.getMessage());
     }
 }
