@@ -2,6 +2,8 @@ package com.kata.cinema.base.dao.abstracts.dto;
 
 import com.kata.cinema.base.models.dto.MovieDto;
 
-public interface MovieDtoDao {
-    MovieDto getById(Long id);
+import java.util.Optional;
+
+public interface MovieDtoDao extends  PaginationDtoDao<MovieDto>{
+    Optional<MovieDto> getById(Long id);
 }
