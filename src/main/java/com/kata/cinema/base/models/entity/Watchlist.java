@@ -21,9 +21,11 @@ public class Watchlist {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
     private Category category ;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "privacy")
     private Privacy privacy ;
 

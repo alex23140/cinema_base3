@@ -28,7 +28,7 @@ public class UserWatchlistRestController {
     @ApiOperation(value = "получить Watchlist по id", notes = "получить Watchlist по id", response = WatchlistDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<WatchlistDto> getWatchlistById(@Positive @PathVariable("id") Long id) {
-        return ResponseEntity.ok(watchlistDtoService.findWatchlistDtoById(id));
+        return ResponseEntity.ok(watchlistDtoService.findWatchlistDtoById(id).get());
     }
 
 }
