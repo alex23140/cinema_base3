@@ -9,3 +9,12 @@ Test project:
   stage: test
   script:
     - mvn test
+
+services:
+  - postgres:12.2-alpine
+
+variables:
+  POSTGRES_DB: cinema_db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: root
+  POSTGRES_HOST_AUTH_METHOD: trust
