@@ -14,12 +14,9 @@ services:
   - postgres:12.2-alpine
 
 variables:
-  POSTGRES_DB: cinema_db
+  POSTGRES_DB: localhost:5432/cinema_db
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: root
   POSTGRES_HOST_AUTH_METHOD: trust
 
-  Host: localhost
-  User: postgres
-  Password: root
-  Database: cinema_db
+
