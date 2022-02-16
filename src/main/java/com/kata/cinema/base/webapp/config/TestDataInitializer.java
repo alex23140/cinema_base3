@@ -13,8 +13,10 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.kata.cinema.base.models.enums.Category.WAITING_MOVIES;
+import static com.kata.cinema.base.models.enums.Category.*;
 import static com.kata.cinema.base.models.enums.MPAA.PARENTAL_GUIDANCE_SUGGESTED;
 import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
 import static com.kata.cinema.base.models.enums.RARS.TWELVE_PLUS;
@@ -30,6 +32,9 @@ public class TestDataInitializer {
     private final NewsService newsService;
     private final WatchlistService watchlistService;
 
+    private final long NUM_OF_USERS = 10L;
+    private List<User> users = new ArrayList<>();
+
     public TestDataInitializer(RoleService roleService, UserService userService, MovieService movieService, NewsService newsService, WatchlistService watchlistService) {
         this.roleService = roleService;
         this.userService = userService;
@@ -37,6 +42,7 @@ public class TestDataInitializer {
         this.newsService = newsService;
         this.watchlistService = watchlistService;
     }
+
 
     @PostConstruct
     public void init() {
@@ -48,48 +54,53 @@ public class TestDataInitializer {
     }
 
     public void addRole() {
+
         Role role1 = new Role();
 
         role1.setId(1L);
-        role1.setName("Admin");
+        role1.setName("ROLE_ADMIN");
         roleService.update(role1);
 
         Role role2 = new Role();
 
         role2.setId(2L);
-        role2.setName("User");
+        role2.setName("ROLE_USER");
         roleService.update(role2);
     }
 
     public void addUser() {
-        Role adminRole = roleService.getById(1L).get();
-        Role userRole = roleService.getById(2L).get();
+        Role role1 = roleService.getRoleByName("ROLE_ADMIN");
+        Role role2 = roleService.getRoleByName("ROLE_USER");
 
-        User user1 = new User();
+        for (Long i = 1L; i <= NUM_OF_USERS; i++) {
+            User user1 = new User();
+            user1.setRole(role1);
+            user1.setId(i);
+            user1.setEmail("user" + i + "@mail.ru");
+            user1.setNickname("user" + i);
+            user1.setFirstName("user" + i +"Firstname");
+            user1.setLastName("user"+ i +"Lastname");
+            user1.setPassword("user111111111111");
+            user1.setBirthday(LocalDate.of(1995, 11, 12));
+            user1.setEnabled(true);
+            users.add(user1);
+            userService.update(user1);
+        }
 
-        user1.setRole(adminRole);
-        user1.setId(3L);
-        user1.setEmail("user1@mail.ru");
-        user1.setNickname("user1");
-        user1.setFirstName("user1Firstname");
-        user1.setLastName("user1Lastname");
-        user1.setPassword("user111111111111111");
-        user1.setBirthday(LocalDate.of(1995, 11, 12));
-        user1.setEnabled(true);
-        userService.update(user1);
-
-        User user2 = new User();
-
-        user2.setRole(userRole);
-        user2.setId(4L);
-        user2.setEmail("user2@mail.ru");
-        user2.setNickname("user2");
-        user2.setFirstName("user2Firstname");
-        user2.setLastName("user2Lastname");
-        user2.setPassword("user111111111111111");
-        user2.setBirthday(LocalDate.of(1997, 1, 3));
-        user2.setEnabled(true);
-        userService.update(user2);
+        for (Long i =NUM_OF_USERS+1; i <= NUM_OF_USERS*2; i++) {
+            User user2 = new User();
+            user2.setRole(role2);
+            user2.setId(i);
+            user2.setEmail("user" + i + "@mail.ru");
+            user2.setNickname("user" + i);
+            user2.setFirstName("user" + i +"Firstname");
+            user2.setLastName("user"+ i +"Lastname");
+            user2.setPassword("user111111111111");
+            user2.setBirthday(LocalDate.of(1995, 11, 12));
+            user2.setEnabled(true);
+            users.add(user2);
+            userService.update(user2);
+        }
     }
 
     public void addMovie() {
@@ -119,13 +130,30 @@ public class TestDataInitializer {
 
     public void addWatchlist() {
         Watchlist watchlist1 = new Watchlist();
+        Watchlist watchlist2 = new Watchlist();
+        Watchlist watchlist3 = new Watchlist();
 
-        watchlist1.setUser(userService.getById(3L).get());
-        watchlist1.setId(1L);
-        watchlist1.setCategory(WAITING_MOVIES);
-        watchlist1.setPrivacy(PUBLIC);
-        watchlist1.setName("watchlist1");
-        watchlist1.setDescription("description1");
-        watchlistService.update(watchlist1);
+        for (int i=3 ; i<=users.size()-1 ; i++) {
+            watchlist1.setUser(users.get(i));
+            watchlist1.setCategory(WAITING_MOVIES);
+            watchlist1.setPrivacy(PUBLIC);
+            watchlist1.setName("watchlist"+ i);
+            watchlist1.setDescription("description1");
+            watchlistService.update(watchlist1);
+
+            watchlist2.setUser(users.get(i));
+            watchlist2.setCategory(FAVORITE_MOVIES);
+            watchlist2.setPrivacy(PUBLIC);
+            watchlist2.setName("watchlist" + ((users.size())+i));
+            watchlist2.setDescription("description1");
+            watchlistService.update(watchlist2);
+
+            watchlist3.setUser(users.get(i));
+            watchlist3.setCategory(WILL_WATCH);
+            watchlist3.setPrivacy(PUBLIC);
+            watchlist3.setName("watchlist" + ((users.size()*2)+i));
+            watchlist3.setDescription("description1");
+            watchlistService.update(watchlist3);
+        }
     }
 }

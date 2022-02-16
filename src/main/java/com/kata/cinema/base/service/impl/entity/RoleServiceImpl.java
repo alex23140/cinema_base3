@@ -15,4 +15,8 @@ public class RoleServiceImpl extends AbstractServiceImpl<Long, Role> implements 
         super(abstractDao);
         this.roleDao = roleDao;
     }
+
+    public Role getRoleByName(String name) {
+        return roleDao.getRoleByName(name);
+    }
 }
