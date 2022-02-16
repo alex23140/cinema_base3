@@ -29,9 +29,9 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
                 .andExpect(MockMvcResultMatchers.jsonPath("$.country").value("rus2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dateRelease").value("10.10.2020"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("test2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTS_STRONGLY_CAUTIONED"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTAL_GUIDANCE_SUGGESTED"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.previewIsExist").value("true"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value(2));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("SIX_PLUS"));
     }
 
     @Test
