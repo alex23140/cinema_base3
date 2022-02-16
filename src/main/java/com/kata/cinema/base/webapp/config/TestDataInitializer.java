@@ -1,7 +1,7 @@
 package com.kata.cinema.base.webapp.config;
 
 import com.kata.cinema.base.models.entity.*;
-import com.kata.cinema.base.service.abstracts.WatchlistService;
+import com.kata.cinema.base.service.abstracts.entity.WatchlistService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
 import com.kata.cinema.base.service.abstracts.entity.NewsService;
 import com.kata.cinema.base.service.abstracts.entity.RoleService;
