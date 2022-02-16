@@ -17,22 +17,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests {
 
-    @Test
-    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
-    public void shouldReturnMovie() throws Exception {
-        this.mockMvc.perform(get("/api/moderator/movie/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("movie2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.country").value("rus2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.dateRelease").value("10.10.2020"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("test2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTS_STRONGLY_CAUTIONED"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.previewIsExist").value("true"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("TWELVE_PLUS"));
-    }
+//    @Test
+//    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
+//    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
+//    public void shouldReturnMovie() throws Exception {
+//        this.mockMvc.perform(get("/api/moderator/movie/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("movie2"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.country").value("rus2"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.dateRelease").value("10.10.2020"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("test2"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTS_STRONGLY_CAUTIONED"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.previewIsExist").value("true"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("TWELVE_PLUS"));
+//    }
 
     @Test
     @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
