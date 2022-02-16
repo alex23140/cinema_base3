@@ -13,12 +13,10 @@ import java.util.List;
 public class FileUtil {
 
     @Value("${uploads_movies_preview}")
-    private static String dirpath;
+    private static String dirpath="/uploads/movies/preview";
 
 
     public static boolean uploadFile(long id, MultipartFile file) throws Exception {
-
-        // Сначала проверяем формат изображения
         List<String> imageType = new ArrayList<>();
         imageType.add("jpg");
         imageType.add("jpeg");
@@ -34,7 +32,7 @@ public class FileUtil {
 
             String newFileName = id + "." + fileSuffix;
             String path = File.separator + newFileName;
-            File destFile = new File(dirpath + path);
+            File destFile = new File( new java.io.File("").getAbsolutePath() + dirpath + path);
 
             if (!destFile.getParentFile().exists()) {
                 destFile.getParentFile().mkdirs();

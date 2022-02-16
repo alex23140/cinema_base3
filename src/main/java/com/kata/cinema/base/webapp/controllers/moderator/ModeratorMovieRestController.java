@@ -15,11 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.Optional;
-
 import java.util.Optional;
 
 @RestController
@@ -47,12 +44,13 @@ public class ModeratorMovieRestController {
     }
 
     @PostMapping("{id}/uploadPreview")
-     public ResponseEntity<MovieDto> upload(@PathVariable("id") Long id,
+     public ResponseEntity<MovieDto> uploadPreview(@PathVariable("id") Long id,
                                            @RequestParam("file") MultipartFile file) {
 
         if (!movieDao.isExistById(id)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
         }
+
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
         }
@@ -60,17 +58,12 @@ public class ModeratorMovieRestController {
         try {
             if (movieService.MovieUploadPreview(id, file)) {
 
-                Optional<Movie> movie = movieDao.getById(id);
+                Optional<Movie> movie = movieService.getById(id);
                 movie.get().setPreviewIsExist(true);
-                movieDao.update(movie.get());
-
-                // сохранили изображение и изменили PreviewIsExist
-                 return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie.get()));
+                movieService.update(movie.get());/**/
+                return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie.get()));
             }else{
-                // случай когда
-                // 1 ошибка при сохранении
-                // 2 недопустимый файл
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
             }
         } catch (Exception e) {
             e.printStackTrace();
