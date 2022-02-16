@@ -26,8 +26,13 @@ public class ResourcesController {
     public ResponseEntity<byte[]> downloadJpg2(HttpServletRequest request) throws Exception {
 
         String strFile = request.toString();
+        System.out.println(strFile);
 
         File fileName = new File(strFile);
+
+        System.out.println(request);
+        System.out.println(fileName);
+        System.out.println(strFile);
 
         if (fileName.exists()) {
             byte[] bytes = Files.readAllBytes(fileName.toPath());
@@ -36,7 +41,7 @@ public class ResourcesController {
             // не существует
             byte[] bytes = new byte[0];
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bytes);
-        }
+        }/**/
     }
  
 //    String httpServletRequestToString(HttpServletRequest request) throws Exception {
