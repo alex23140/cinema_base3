@@ -1,5 +1,6 @@
 package com.kata.cinema.base.webapp.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,14 +16,11 @@ public class GlobalRestControllerExceptionHandler {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         exception.printStackTrace(pw);
-        return ResponseEntity.status(500).body(sw.toString());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(sw.toString());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<String> constraintViolationException(ConstraintViolationException exception) {
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        exception.printStackTrace(pw);
-        return ResponseEntity.status(400).body(sw.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 }

@@ -17,7 +17,7 @@ public class ApiValidationUtils {
     }
 
     public static void requireFalse(boolean val, String errorMessage) {
-        if (!val) {
+        if (val) {
             throw new ConstraintViolationException(errorMessage, Collections.emptySet());
         }
     }
