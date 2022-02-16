@@ -18,3 +18,8 @@ variables:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: root
   POSTGRES_HOST_AUTH_METHOD: trust
+
+  Host: localhost
+  User: postgres
+  Password: root
+  Database: cinema_db
