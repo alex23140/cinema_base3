@@ -1,5 +1,7 @@
 package com.kata.cinema.base.webapp.controllers.moderator;
 
+
+import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.entity.Movie;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -24,6 +27,7 @@ public class ModeratorMovieRestController {
     private final MovieDtoService movieDtoService;
     private final MovieService movieService;
     private final MovieMapper movieMapper;
+    private final MovieDao movieDao;
 
     @ApiOperation(value = "Создание Movie", notes = "Создание Movie", response = MovieDto.class)
     @PostMapping
@@ -37,5 +41,27 @@ public class ModeratorMovieRestController {
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(movieDtoService.getById(id).get());
+    }
+
+    @PostMapping("{id}/uploadPreview")
+     public ResponseEntity<MovieDto> uploadPreview(@PathVariable("id") Long id,
+                                           @RequestParam("file") MultipartFile file) throws Exception {
+
+        if (!movieDao.isExistById(id)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        if (file.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+
+        movieService.MovieUploadPreview(id, file);
+
+        Optional<Movie> movie = movieService.getById(id);
+        movie.get().setPreviewIsExist(true);
+        movieService.update(movie.get());
+        return ResponseEntity.ok().body(movieMapper.toDto(movie.get()));
+
+
     }
 }
