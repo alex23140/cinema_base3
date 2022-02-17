@@ -2,6 +2,8 @@ package com.kata.cinema.base.service.abstracts.dto;
 
 import com.kata.cinema.base.models.dto.UserDto;
 
+import java.util.Optional;
+
 public interface UserDtoDaoService {
-    UserDto getById(long userId);
+    Optional<UserDto> getById(long userId);
 }

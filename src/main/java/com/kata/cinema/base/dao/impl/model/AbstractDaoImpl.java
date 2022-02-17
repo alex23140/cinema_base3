@@ -5,12 +5,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class   AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
+public abstract class AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
 
     @PersistenceContext
     protected EntityManager entityManager;
@@ -45,7 +46,7 @@ public abstract class   AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
     @Override
     @Transactional(propagation = Propagation.MANDATORY)
     public void delete(E entity) {
-        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));;
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     @Override
@@ -58,15 +59,19 @@ public abstract class   AbstractDaoImpl<PK, E> implements AbstractDao<PK, E> {
     @Override
     //TODO если в базе не будет пользователя с таким id, то вылетит ексепшинал
     public Optional<E> getById(PK id) {
-        return Optional.of(entityManager.find(persistentClass, id));
+        try {
+            return Optional.of(entityManager.find(persistentClass, id));
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
     public boolean isExistById(PK id) {
         return entityManager.createQuery(
-                "SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM " + className + " e WHERE e.id =: id"
-                , Boolean.class
-        )
+                        "SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END FROM " + className + " e WHERE e.id =: id"
+                        , Boolean.class
+                )
                 .setParameter("id", id)
                 .getSingleResult();
     }
