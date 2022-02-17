@@ -1,7 +1,7 @@
-package com.kata.cinema.base.util;
+package com.kata.cinema.base.webapp.util;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
+@PropertySource("classpath:application.properties")
 public class FileUtil {
 
-    @Value("${uploads_movies_preview}")
-    private static String dirpath="/uploads/movies/preview";
+    @Value("${preview}")
+    private static String dirpath;
 
-
-    public static boolean uploadFile(long id, MultipartFile file) throws Exception {
+    public static void uploadFile(long id, MultipartFile file) throws NotSupportingSuffix  {
         List<String> imageType = new ArrayList<>();
         imageType.add("jpg");
         imageType.add("jpeg");
@@ -45,9 +45,16 @@ public class FileUtil {
             }
 
         } else {
-            throw new Exception("the picture's suffix is illegal");
+            throw new NotSupportingSuffix ();
         }
-        return  true;
     }
+}
 
+
+class NotSupportingSuffix  extends Exception
+{
+    public String toString()
+    {
+        return "the picture's suffix is illegal";
+    }
 }

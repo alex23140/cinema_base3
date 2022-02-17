@@ -5,5 +5,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface MovieService extends AbstractService<Long, Movie> {
 
-    boolean MovieUploadPreview(Long id, MultipartFile file) throws Exception;
+    void MovieUploadPreview(Long id, MultipartFile file) throws Exception;
 }

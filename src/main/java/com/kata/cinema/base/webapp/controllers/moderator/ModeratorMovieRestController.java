@@ -45,7 +45,7 @@ public class ModeratorMovieRestController {
 
     @PostMapping("{id}/uploadPreview")
      public ResponseEntity<MovieDto> uploadPreview(@PathVariable("id") Long id,
-                                           @RequestParam("file") MultipartFile file) {
+                                           @RequestParam("file") MultipartFile file) throws Exception {
 
         if (!movieDao.isExistById(id)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
@@ -55,21 +55,13 @@ public class ModeratorMovieRestController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
         }
 
-        try {
-            if (movieService.MovieUploadPreview(id, file)) {
+        movieService.MovieUploadPreview(id, file);
 
-                Optional<Movie> movie = movieService.getById(id);
-                movie.get().setPreviewIsExist(true);
-                movieService.update(movie.get());/**/
-                return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie.get()));
-            }else{
-                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Optional<Movie> movie = movieService.getById(id);
+        movie.get().setPreviewIsExist(true);
+        movieService.update(movie.get());
+        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.toDto(movie.get()));
 
 
-        return null;
     }
 }
