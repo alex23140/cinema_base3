@@ -32,7 +32,7 @@ public class TestDataInitializer {
     private final NewsService newsService;
     private final WatchlistService watchlistService;
 
-    private final long NUM_OF_USERS = 10L;
+    private final long NUM_OF_USERS = 20L;
     private List<User> users = new ArrayList<>();
 
     public TestDataInitializer(RoleService roleService, UserService userService, MovieService movieService, NewsService newsService, WatchlistService watchlistService) {
@@ -57,45 +57,43 @@ public class TestDataInitializer {
 
         Role role1 = new Role();
 
-        role1.setId(1L);
-        role1.setName("ROLE_ADMIN");
+        role1.setName("roleAdmin");
         roleService.update(role1);
 
         Role role2 = new Role();
 
-        role2.setId(2L);
-        role2.setName("ROLE_USER");
+        role2.setName("roleUser");
         roleService.update(role2);
     }
 
     public void addUser() {
-        Role role1 = roleService.getRoleByName("ROLE_ADMIN");
-        Role role2 = roleService.getRoleByName("ROLE_USER");
+        Role role1 = roleService.getRoleByName("roleAdmin");
+        Role role2 = roleService.getRoleByName("roleUser");
 
-        for (Long i = 1L; i <= NUM_OF_USERS; i++) {
+        for (Long i = 1L; i <= NUM_OF_USERS/2; i++) {
             User user1 = new User();
-            user1.setRole(role1);
+            user1.setRole(role2);
             user1.setId(i);
             user1.setEmail("user" + i + "@mail.ru");
             user1.setNickname("user" + i);
             user1.setFirstName("user" + i +"Firstname");
             user1.setLastName("user"+ i +"Lastname");
-            user1.setPassword("user111111111111");
+            user1.setPassword("user");
             user1.setBirthday(LocalDate.of(1995, 11, 12));
             user1.setEnabled(true);
             users.add(user1);
             userService.update(user1);
         }
 
-        for (Long i =NUM_OF_USERS+1; i <= NUM_OF_USERS*2; i++) {
+        for (Long i =(NUM_OF_USERS/2)+1; i <= NUM_OF_USERS; i++) {
             User user2 = new User();
-            user2.setRole(role2);
+            user2.setRole(role1);
             user2.setId(i);
             user2.setEmail("user" + i + "@mail.ru");
             user2.setNickname("user" + i);
             user2.setFirstName("user" + i +"Firstname");
             user2.setLastName("user"+ i +"Lastname");
-            user2.setPassword("user111111111111");
+            user2.setPassword("admin");
             user2.setBirthday(LocalDate.of(1995, 11, 12));
             user2.setEnabled(true);
             users.add(user2);
@@ -106,7 +104,6 @@ public class TestDataInitializer {
     public void addMovie() {
         Movie movie1 = new Movie();
 
-        movie1.setId(1L);
         movie1.setName("movie1");
         movie1.setCountry("country1");
         movie1.setDateRelease(LocalDate.of(2000, 2, 7));
@@ -120,7 +117,6 @@ public class TestDataInitializer {
     public void addNews() {
         News news1 = new News();
 
-        news1.setId(1L);
         news1.setRubric(ABOUT_CINEMA);
         news1.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
         news1.setTitle("title1");
@@ -137,22 +133,22 @@ public class TestDataInitializer {
             watchlist1.setUser(users.get(i));
             watchlist1.setCategory(WAITING_MOVIES);
             watchlist1.setPrivacy(PUBLIC);
-            watchlist1.setName("watchlist"+ i);
-            watchlist1.setDescription("description1");
+            watchlist1.setName("watchlistWaitingMovies"+ i);
+            watchlist1.setDescription("description"+ i);
             watchlistService.update(watchlist1);
 
             watchlist2.setUser(users.get(i));
             watchlist2.setCategory(FAVORITE_MOVIES);
             watchlist2.setPrivacy(PUBLIC);
-            watchlist2.setName("watchlist" + ((users.size())+i));
-            watchlist2.setDescription("description1");
+            watchlist2.setName("watchlistFavoriteMovies" + ((users.size())+i));
+            watchlist2.setDescription("description" + ((users.size())+i));
             watchlistService.update(watchlist2);
 
             watchlist3.setUser(users.get(i));
             watchlist3.setCategory(WILL_WATCH);
             watchlist3.setPrivacy(PUBLIC);
-            watchlist3.setName("watchlist" + ((users.size()*2)+i));
-            watchlist3.setDescription("description1");
+            watchlist3.setName("watchlistWillWatchMovies" + ((users.size()*2)+i));
+            watchlist3.setDescription("description" + ((users.size()*2)+i));
             watchlistService.update(watchlist3);
         }
     }
