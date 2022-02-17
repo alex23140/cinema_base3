@@ -48,11 +48,11 @@ public class ModeratorMovieRestController {
                                            @RequestParam("file") MultipartFile file) throws Exception {
 
         if (!movieDao.isExistById(id)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         if (file.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(movieMapper.toDto(new Movie() ));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         movieService.MovieUploadPreview(id, file);
@@ -60,7 +60,7 @@ public class ModeratorMovieRestController {
         Optional<Movie> movie = movieService.getById(id);
         movie.get().setPreviewIsExist(true);
         movieService.update(movie.get());
-        return ResponseEntity.status(HttpStatus.OK).body(movieMapper.toDto(movie.get()));
+        return ResponseEntity.ok().body(movieMapper.toDto(movie.get()));
 
 
     }

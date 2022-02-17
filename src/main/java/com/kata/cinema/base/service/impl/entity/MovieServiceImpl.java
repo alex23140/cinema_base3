@@ -12,14 +12,16 @@ import org.springframework.web.multipart.MultipartFile;
 public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implements MovieService {
 
     private final MovieDao movieDao;
+    private final FileUtil fileUtil;
 
-    protected MovieServiceImpl(MovieDao movieDao) {
+    protected MovieServiceImpl(MovieDao movieDao, FileUtil fileUtil) {
         super(movieDao);
         this.movieDao = movieDao;
+        this.fileUtil = fileUtil;
     }
 
     @Override
     public void MovieUploadPreview(Long id, MultipartFile file) throws Exception {
-         FileUtil.uploadFile(id, file);
+        fileUtil.uploadFile(id, file);
     }
 }

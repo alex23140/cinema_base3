@@ -1,7 +1,8 @@
 package com.kata.cinema.base.webapp.util;
 
+
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,14 +10,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@PropertySource("classpath:application.properties")
+@Repository
 public class FileUtil {
 
-    @Value("${preview}")
-    private static String dirpath;
+    @Value("${my.preview}")
+    String dirpath;
 
-    public static void uploadFile(long id, MultipartFile file) throws NotSupportingSuffix  {
+    public void uploadFile(long id, MultipartFile file) throws NotSupportingSuffix  {
+
         List<String> imageType = new ArrayList<>();
         imageType.add("jpg");
         imageType.add("jpeg");
@@ -43,7 +44,6 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } else {
             throw new NotSupportingSuffix ();
         }

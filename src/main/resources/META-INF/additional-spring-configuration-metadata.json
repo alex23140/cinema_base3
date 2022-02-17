@@ -1,7 +1,0 @@
-{
-  "properties": [
-    {
-      "name": "preview",
-      "defaultValue": "/uploads/movies/preview"
-  }
-] }
