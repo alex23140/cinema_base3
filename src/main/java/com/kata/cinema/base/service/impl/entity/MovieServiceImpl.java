@@ -21,7 +21,7 @@ public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implement
     }
 
     @Override
-    public void MovieUploadPreview(Long id, MultipartFile file) throws Exception {
+    public void movieUploadPreview(Long id, MultipartFile file) {
         fileUtil.uploadFile(id, file);
     }
 }
