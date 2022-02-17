@@ -6,6 +6,8 @@ import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implements MovieService {
 
@@ -14,5 +16,10 @@ public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implement
     protected MovieServiceImpl(MovieDao movieDao) {
         super(movieDao);
         this.movieDao = movieDao;
+    }
+
+    @Override
+    public List<Movie> getListOfMoviesById(List<Long> moviesId) {
+        return movieDao.getListOfMoviesById(moviesId);
     }
 }
