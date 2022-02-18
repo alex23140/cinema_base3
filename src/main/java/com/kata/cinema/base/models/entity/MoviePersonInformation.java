@@ -1,6 +1,7 @@
 package com.kata.cinema.base.models.entity;
 
 
+import com.kata.cinema.base.models.enums.TypeCharacter;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -58,4 +59,10 @@ public class MoviePersonInformation {
                     @JoinColumn(name = "movie_id", insertable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "profession_id")})
     private Set<Profession> professions;
+
+    @Column(name = "type_person")
+    private TypeCharacter type;
+
+    @Column(name = "name_role")
+    private String nameCharacter;
 }

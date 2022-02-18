@@ -2,12 +2,15 @@ package com.kata.cinema.base.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kata.cinema.base.models.entity.Genre;
+import com.kata.cinema.base.models.entity.Person;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -29,6 +32,7 @@ public class MovieDto {
     private String description;
     private Boolean previewIsExist = false;
 
-    //TODO добавить связь Movie и Genre
-    //private List<Genre> genres;
+    private List<String> genres;
+    //<Actor, {Ben, Fred, Tom}>
+        private Map<String, List<Person>> persons;
 }
