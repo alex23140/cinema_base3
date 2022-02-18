@@ -8,7 +8,7 @@ Build project:
 Test project:
   stage: test
   script:
-    - mvn test
+    - mvn test -Dspring.profiles.active=application-dev.properties
 
 services:
   - postgres:12.2-alpine
@@ -19,3 +19,7 @@ variables:
   POSTGRES_PASSWORD: root
   POSTGRES_HOST_AUTH_METHOD: trust
 
+
+spring:
+  profiles:
+    active=dev:
