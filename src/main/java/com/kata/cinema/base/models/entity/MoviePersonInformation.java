@@ -27,7 +27,7 @@ public class MoviePersonInformation {
     @NoArgsConstructor
     @Embeddable
     @EqualsAndHashCode(of = {"personId", "movieId"})
-    private class Id implements Serializable {
+    public static class Id implements Serializable {
 
         @Column(name = "person_id")
         private Long personId;

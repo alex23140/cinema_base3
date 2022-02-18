@@ -37,7 +37,7 @@ public class User {
     private String lastName;
 
     //TODO добавить валидатор на отсутствие пробелов (через @Pattern)
-    @Size(min = 6, max = 60, message = "Пароль должен быть больше 6 символов и меньше 30")
+    @Size(min = 4, max = 60, message = "Пароль должен быть больше 4 символов и меньше 30")
     @Column(name = "password", length = 60, nullable = false)
     private String password;
 
