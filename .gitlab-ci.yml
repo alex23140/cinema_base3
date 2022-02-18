@@ -1,0 +1,23 @@
+image: maven:latest
+
+Build project:
+  stage: build
+  script:
+    - mvn compile -Dspring.profiles.active=dev
+
+Test project:
+  stage: test
+  script:
+    - mvn test -Dspring.profiles.active=dev
+
+services:
+  - postgres:12.2-alpine
+
+variables:
+  POSTGRES_DB: cinema_db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: root
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+
+
