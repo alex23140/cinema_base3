@@ -5,7 +5,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.jayway.jsonpath.JsonPath;
 import com.kata.cinema.base.models.dto.MovieDto;
-import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,7 +16,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests {
-
 
     @Test
     @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
@@ -31,9 +29,9 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
                 .andExpect(MockMvcResultMatchers.jsonPath("$.country").value("rus2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.dateRelease").value("10.10.2020"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("test2"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTS_STRONGLY_CAUTIONED"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTAL_GUIDANCE_SUGGESTED"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.previewIsExist").value("true"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("TWELVE_PLUS"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("SIX_PLUS"));
     }
 
     @Test

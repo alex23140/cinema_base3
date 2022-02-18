@@ -5,9 +5,9 @@
             country="rus2"
             date_release="2020-10-10"
             description="test2"
-            mpaa="2"
+            mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie2"
             preview_is_exist="true"
-            rars="2"
+            rars="SIX_PLUS"
     />
 </dataset>
