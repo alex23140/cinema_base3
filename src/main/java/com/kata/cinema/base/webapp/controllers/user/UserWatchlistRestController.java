@@ -46,7 +46,7 @@ public class UserWatchlistRestController {
     @PostMapping("/{id}/movies")
     public ResponseEntity<HttpStatus> addMovieToWatchlist(@RequestBody List<Long> moviesId,
                                                           @Positive @PathVariable("id") Long id) {
-        Optional<Watchlist> watchlist = watchlistService.getById(id);
+        Optional<Watchlist> watchlist = watchlistService.getWatchListById(id);
         ApiValidationUtils.requireTrue(watchlist.isPresent(), "списка с указанным id не существует");
         Watchlist watchlist1 = watchlist.get();
         Set<Movie> movies = watchlist1.getMovies();
@@ -60,7 +60,7 @@ public class UserWatchlistRestController {
     @DeleteMapping("/{id}/movies")
     public ResponseEntity<HttpStatus> deleteMovieFromWatchlist(@RequestBody List<Long> moviesId,
                                                                @Positive @PathVariable("id") Long id) {
-        Optional<Watchlist> watchlist = watchlistService.getById(id);
+        Optional<Watchlist> watchlist = watchlistService.getWatchListById(id);
         ApiValidationUtils.requireTrue(watchlist.isPresent(), "списка с указанным id не существует");
         Watchlist watchlist1 = watchlist.get();
         Set<Movie> movies = watchlist1.getMovies();
