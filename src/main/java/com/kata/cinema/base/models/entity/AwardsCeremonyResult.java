@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Table(name = "awards_ceremony_result")
 public class AwardsCeremonyResult {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "awards_ceremony_result_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "awards_ceremony_result_gen", sequenceName = "awards_ceremony_result_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "nominationStatus")

@@ -13,11 +13,13 @@ import javax.persistence.*;
 @Table(name = "award")
 public class Award {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "award_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "award_gen", sequenceName = "award_id_seq", allocationSize = 1)
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "descriptor")
     private String descriptor;
 }

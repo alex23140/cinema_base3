@@ -14,8 +14,8 @@ import java.time.LocalDate;
 @Table(name = "awards_ceremony")
 public class AwardsCeremony {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "awards_ceremony_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "awards_ceremony_gen", sequenceName = "awards_ceremony_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "date_event")

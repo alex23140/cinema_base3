@@ -17,17 +17,17 @@ import java.util.Set;
 @Table(name = "watchlist")
 public class Watchlist {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "watchlist_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "watchlist_gen", sequenceName = "watchlist_id_seq", allocationSize = 1)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private Category category ;
+    private Category category;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "privacy")
-    private Privacy privacy ;
+    private Privacy privacy;
 
     @Column(name = "name")
     private String name;

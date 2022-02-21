@@ -17,10 +17,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "users_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "users_gen", sequenceName = "users_id_seq", allocationSize = 1)
     private Long id;
 
     @Size(max = 50, message = "email должен быть короче 50 символов")
