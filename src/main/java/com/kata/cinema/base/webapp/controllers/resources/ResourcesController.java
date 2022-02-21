@@ -2,62 +2,37 @@ package com.kata.cinema.base.webapp.controllers.resources;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
 import java.io.File;
-import java.nio.file.Files;
 
 @Controller
 @Validated
 @AllArgsConstructor
+@RequestMapping("/uploads")
 public class ResourcesController {
 
-//    @Value("${uploads_movies_preview}")
-//    private static String dirpath;
+    @GetMapping(produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE} )
+    public byte[] downloadJpg2(String ImageName) throws Exception {
 
+        // open image
+        File imgPath = new File("/uploads/"+ImageName);
+        BufferedImage bufferedImage = ImageIO.read(imgPath);
 
-    @GetMapping(value = "/uploads/**", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE} )
-    public ResponseEntity<byte[]> downloadJpg2(HttpServletRequest request) throws Exception {
+        // get DataBufferBytes from Raster
+        WritableRaster raster = bufferedImage .getRaster();
+        DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
 
-        String strFile = request.toString();
-        System.out.println(strFile);
-
-        File fileName = new File(strFile);
-
-        System.out.println(request);
-        System.out.println(fileName);
-        System.out.println(strFile);
-
-        if (fileName.exists()) {
-            byte[] bytes = Files.readAllBytes(fileName.toPath());
-            return ResponseEntity.ok().body(bytes);
-        } else {
-            // не существует
-            byte[] bytes = new byte[0];
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bytes);
-        }/**/
+        return data.getData();
     }
- 
-//    String httpServletRequestToString(HttpServletRequest request) throws Exception {
-//
-//        ServletInputStream mServletInputStream = request.getInputStream();
-//        byte[] httpInData = new byte[request.getContentLength()];
-//        int retVal = -1;
-//        StringBuilder stringBuilder = new StringBuilder();
-//
-//        while ((retVal = mServletInputStream.read(httpInData)) != -1) {
-//            for (int i = 0; i < retVal; i++) {
-//                stringBuilder.append(Character.toString((char) httpInData[i]));
-//            }
-//        }
-//        return stringBuilder.toString();
-//    }
 
 }
 
