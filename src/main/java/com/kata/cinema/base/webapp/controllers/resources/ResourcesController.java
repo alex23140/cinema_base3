@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.IOException;
 
 @Controller
 @Validated
@@ -21,17 +22,27 @@ import java.io.File;
 public class ResourcesController {
 
     @GetMapping(produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE} )
-    public byte[] downloadJpg2(String ImageName) throws Exception {
+    public byte[] downloadJpg2(String ImageName) {
 
         // open image
         File imgPath = new File("/uploads/"+ImageName);
-        BufferedImage bufferedImage = ImageIO.read(imgPath);
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(imgPath);
+            // get DataBufferBytes from Raster
+            WritableRaster raster = bufferedImage .getRaster();
+            DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
 
-        // get DataBufferBytes from Raster
-        WritableRaster raster = bufferedImage .getRaster();
-        DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
+            return data.getData();
+        } catch (IOException e) {
+            e.printStackTrace();
 
-        return data.getData();
+
+
+            return null;
+        }
+
+
     }
 
 }
