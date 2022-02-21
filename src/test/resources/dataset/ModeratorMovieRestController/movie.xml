@@ -10,4 +10,14 @@
             preview_is_exist="true"
             rars="SIX_PLUS"
     />
+    <movies
+            id="2"
+            country="rus3"
+            date_release="2020-10-10"
+            description="test3"
+            mpaa="PARENTAL_GUIDANCE_SUGGESTED"
+            name="movie3"
+            preview_is_exist="true"
+            rars="SIX_PLUS"
+    />
 </dataset>

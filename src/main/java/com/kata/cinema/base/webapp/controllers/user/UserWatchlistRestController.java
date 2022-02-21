@@ -43,6 +43,7 @@ public class UserWatchlistRestController {
         return ResponseEntity.ok(watchlistDto.get());
     }
 
+    @ApiOperation(value = "добавить фильмы в список", notes = "добавить фильмы в список Watchlist", response = HttpStatus.class)
     @PostMapping("/{id}/movies")
     public ResponseEntity<HttpStatus> addMovieToWatchlist(@RequestBody List<Long> moviesId,
                                                           @Positive @PathVariable("id") Long id) {
@@ -57,6 +58,7 @@ public class UserWatchlistRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation(value = "удалить фильмы из списка", notes = "удалить фильмы из Watchlist", response = HttpStatus.class)
     @DeleteMapping("/{id}/movies")
     public ResponseEntity<HttpStatus> deleteMovieFromWatchlist(@RequestBody List<Long> moviesId,
                                                                @Positive @PathVariable("id") Long id) {
