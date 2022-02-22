@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers;
 
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -16,10 +17,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserWatchlistRestController extends CinemaBaseApplicationTests {
 
     @Test
-    @DatabaseSetup(value = "/dataset/UserWatchlistRestController/role.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseSetup(value = "/dataset/UserWatchlistRestController/user.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseSetup(value = "/dataset/UserWatchlistRestController/watchlist.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml"},
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml",
+            "/dataset/UserWatchlistRestController/watchlist_movie.xml"},
+            type = DatabaseOperation.DELETE_ALL)
     public void shouldAddMovieToList() throws Exception {
 
         List<Long> ids = new ArrayList<>();
@@ -33,10 +37,13 @@ public class UserWatchlistRestController extends CinemaBaseApplicationTests {
     }
 
     @Test
-    @DatabaseSetup(value = "/dataset/UserWatchlistRestController/role.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseSetup(value = "/dataset/UserWatchlistRestController/user.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseSetup(value = "/dataset/UserWatchlistRestController/watchlist.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml"},
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml",
+            "/dataset/UserWatchlistRestController/watchlist_movie.xml"},
+            type = DatabaseOperation.DELETE_ALL)
     public void shouldDeleteMovieFromList() throws Exception {
 
         List<Long> ids = new ArrayList<>();
