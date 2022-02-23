@@ -3,6 +3,7 @@ package com.kata.cinema.base.dao.impl.dto;
 import com.kata.cinema.base.dao.abstracts.dto.MovieDtoDao;
 import com.kata.cinema.base.dao.abstracts.dto.PaginationDtoDao;
 import com.kata.cinema.base.models.dto.MovieDto;
+import org.hibernate.transform.ResultTransformer;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -30,9 +31,12 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
                             m.rars,
                             m.mpaa,
                             m.description,
-                            m.previewIsExist)
+                            m.previewIsExist,
+                            m.genres
+                            )
                             FROM Movie m
-                            WHERE m.id= :id
+                            LEFT JOIN fetch m.genres
+                            WHERE m.id = :id
                             """, MovieDto.class)
                     .setParameter("id", id)
                     .getSingleResult());
