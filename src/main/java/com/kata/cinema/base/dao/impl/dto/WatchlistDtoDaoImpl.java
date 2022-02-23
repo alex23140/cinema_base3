@@ -1,6 +1,5 @@
 package com.kata.cinema.base.dao.impl.dto;
 
-
 import com.kata.cinema.base.dao.abstracts.dto.WatchlistDtoDao;
 import com.kata.cinema.base.models.dto.WatchlistDto;
 import org.springframework.stereotype.Repository;
@@ -25,7 +24,8 @@ public class WatchlistDtoDaoImpl implements WatchlistDtoDao {
                         w.privacy,
                         w.name,
                         w.description,
-                        w.user.id) FROM Watchlist w where w.user.id = :userId""", WatchlistDto.class)
+                        w.user.id)
+                        FROM Watchlist w where w.user.id = :userId""", WatchlistDto.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }

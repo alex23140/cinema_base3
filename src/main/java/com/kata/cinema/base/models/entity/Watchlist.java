@@ -41,7 +41,7 @@ public class Watchlist {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "watchlist_movie",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "watchlist_id"))
+            joinColumns = @JoinColumn(name = "watchlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Set<Movie> movies;
 }

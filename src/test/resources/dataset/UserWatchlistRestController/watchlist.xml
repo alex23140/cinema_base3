@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <watchlist
+            id="1"
+            category="FAVORITE_MOVIES"
+            description="FAVORITE_MOVIES"
+            name="MY_LIST"
+            privacy="PRIVATE"
+            user_id="1"
+    />
+</dataset>

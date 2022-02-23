@@ -8,6 +8,8 @@ import com.kata.cinema.base.webapp.util.FileUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Service
 public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implements MovieService {
 
@@ -23,5 +25,10 @@ public class MovieServiceImpl extends AbstractServiceImpl<Long, Movie> implement
     @Override
     public void movieUploadPreview(Long id, MultipartFile file) {
         fileUtil.uploadFile(id, file);
+    }
+
+    @Override
+    public List<Movie> getListOfMoviesById(List<Long> moviesId) {
+        return movieDao.getListOfMoviesById(moviesId);
     }
 }
