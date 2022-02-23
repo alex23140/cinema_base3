@@ -25,7 +25,7 @@ public class AwardsCeremony {
     private String placeEvent;
 
     @Column(name = "htmlBody")
-    String htmlBody;
+    private String htmlBody;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "award_id")
