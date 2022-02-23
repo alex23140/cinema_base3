@@ -29,6 +29,9 @@ public class Movie {
     @Column(name = "country")
     private String country;
 
+    @Column(name = "originName")
+    private String originName;
+
     @Column(name = "date_release")
     private LocalDate dateRelease;
 

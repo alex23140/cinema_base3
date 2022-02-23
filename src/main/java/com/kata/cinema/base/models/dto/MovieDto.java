@@ -19,6 +19,7 @@ public class MovieDto {
 
     @NotBlank
     private String name;
+    private String originName;
     private String country;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
