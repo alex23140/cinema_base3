@@ -17,19 +17,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserWatchlistRestController extends CinemaBaseApplicationTests {
 
     @Test
-    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
-            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml"},
+    @DatabaseSetup(value = {
+            "/dataset/UserWatchlistRestController/role.xml",
+            "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml",
+            "/dataset/UserWatchlistRestController/movie.xml"
+    },
             type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
-            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml",
+    @DatabaseTearDown(value = {
+            "/dataset/UserWatchlistRestController/role.xml",
+            "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml",
+            "/dataset/UserWatchlistRestController/movie.xml",
             "/dataset/UserWatchlistRestController/watchlist_movie.xml"},
             type = DatabaseOperation.DELETE_ALL)
     public void shouldAddMovieToList() throws Exception {
-
         List<Long> ids = new ArrayList<>();
         ids.add(1L);
         ids.add(2L);
-
         this.mockMvc.perform(post("/api/user/watchlist/1/movies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(ids)))
@@ -37,15 +42,22 @@ public class UserWatchlistRestController extends CinemaBaseApplicationTests {
     }
 
     @Test
-    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
-            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml"},
+    @DatabaseSetup(value = {
+            "/dataset/UserWatchlistRestController/role.xml",
+            "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml",
+            "/dataset/ModeratorMovieRestController/movie.xml"
+    },
             type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/role.xml", "/dataset/UserWatchlistRestController/user.xml",
-            "/dataset/UserWatchlistRestController/watchlist.xml", "/dataset/ModeratorMovieRestController/movie.xml",
-            "/dataset/UserWatchlistRestController/watchlist_movie.xml"},
+    @DatabaseTearDown(value = {
+            "/dataset/UserWatchlistRestController/role.xml",
+            "/dataset/UserWatchlistRestController/user.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml",
+            "/dataset/ModeratorMovieRestController/movie.xml",
+            "/dataset/UserWatchlistRestController/watchlist_movie.xml"
+    },
             type = DatabaseOperation.DELETE_ALL)
     public void shouldDeleteMovieFromList() throws Exception {
-
         List<Long> ids = new ArrayList<>();
         ids.add(1L);
         ids.add(2L);

@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <roles
-            id="1"
-            name="ADMIN"
-    />
+    <roles id="1" name="ADMIN" />
 </dataset>

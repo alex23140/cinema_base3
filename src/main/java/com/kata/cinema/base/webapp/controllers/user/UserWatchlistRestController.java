@@ -51,9 +51,7 @@ public class UserWatchlistRestController {
         ApiValidationUtils.requireTrue(watchlist.isPresent(), "списка с указанным id не существует");
         Watchlist watchlist1 = watchlist.get();
         Set<Movie> movies = watchlist1.getMovies();
-        Set<Movie> movieSet = new HashSet<>(movieService.getListOfMoviesById(moviesId));
-
-        movies.addAll(movieSet);
+        movies.addAll(movieService.getListOfMoviesById(moviesId));
         watchlistService.update(watchlist1);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -62,14 +60,13 @@ public class UserWatchlistRestController {
     @DeleteMapping("/{id}/movies")
     public ResponseEntity<HttpStatus> deleteMovieFromWatchlist(@RequestBody List<Long> moviesId,
                                                                @Positive @PathVariable("id") Long id) {
-        Optional<Watchlist> watchlist = watchlistService.getWatchListById(id);
-        ApiValidationUtils.requireTrue(watchlist.isPresent(), "списка с указанным id не существует");
-        Watchlist watchlist1 = watchlist.get();
-        Set<Movie> movies = watchlist1.getMovies();
+        Optional<Watchlist> optionalWatchlist = watchlistService.getWatchListById(id);
+        ApiValidationUtils.requireTrue(optionalWatchlist.isPresent(), "списка с указанным id не существует");
+        Watchlist watchlist = optionalWatchlist.get();
+        Set<Movie> movies = watchlist.getMovies();
         Set<Movie> movieSet = new HashSet<>(movieService.getListOfMoviesById(moviesId));
-
         movies.removeAll(movieSet);
-        watchlistService.update(watchlist1);
+        watchlistService.update(watchlist);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

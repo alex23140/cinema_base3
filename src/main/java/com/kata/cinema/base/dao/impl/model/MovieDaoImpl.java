@@ -10,7 +10,8 @@ import java.util.List;
 public class MovieDaoImpl extends AbstractDaoImpl<Long, Movie> implements MovieDao {
     @Override
     public List<Movie> getListOfMoviesById(List<Long> moviesId) {
-        return entityManager.createQuery(" FROM Movie m WHERE m.id IN (:moviesId)", Movie.class)
-                .setParameter("moviesId", moviesId).getResultList();
+        return entityManager.createQuery("SELECT m FROM Movie m WHERE m.id IN (:moviesId)", Movie.class)
+                .setParameter("moviesId", moviesId)
+                .getResultList();
     }
 }
