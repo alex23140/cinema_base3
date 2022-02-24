@@ -25,6 +25,7 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
                             SELECT NEW com.kata.cinema.base.models.dto.MovieDto(
                             m.id,
                             m.name,
+                            m.originName,
                             m.country,
                             m.dateRelease,
                             m.rars,

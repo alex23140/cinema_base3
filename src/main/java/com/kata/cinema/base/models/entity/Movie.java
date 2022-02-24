@@ -29,7 +29,7 @@ public class Movie {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "originName")
+    @Column(name = "origin_name")
     private String originName;
 
     @Column(name = "date_release")

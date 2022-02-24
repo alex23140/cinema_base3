@@ -7,6 +7,7 @@
             description="test2"
             mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie2"
+            origin_name="movie2"
             preview_is_exist="true"
             rars="SIX_PLUS"
     />
