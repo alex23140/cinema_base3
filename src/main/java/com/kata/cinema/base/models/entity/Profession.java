@@ -16,10 +16,9 @@ import java.util.Collection;
 @Entity
 @Table(name = "professions")
 public class Profession {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "professions_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "professions_gen", sequenceName = "professions_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name")
