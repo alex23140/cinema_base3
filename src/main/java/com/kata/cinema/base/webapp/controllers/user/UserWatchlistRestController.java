@@ -90,7 +90,7 @@ public class UserWatchlistRestController {
     @PostMapping
     public ResponseEntity<WatchlistDto> saveWatchlist(@Valid @RequestBody WatchlistDto watchlistDto) {
 
-        if (Category.CUSTOM.equals(watchlistDto.getCategory()) &&  (!watchlistDto.getName().equals(""))) {
+        if (Category.CUSTOM.equals(watchlistDto.getCategory()) && (!watchlistDto.getName().equals(""))) {
             Watchlist watchlist = watchlistMapper.toEntity(watchlistDto);
             watchlistService.create(watchlist);
             return ResponseEntity.status(HttpStatus.CREATED).body(watchlistMapper.toDto(watchlist));
