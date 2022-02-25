@@ -1,6 +1,8 @@
 package com.kata.cinema.base.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.kata.cinema.base.models.entity.Genre;
+import com.kata.cinema.base.models.entity.Person;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import lombok.*;
@@ -8,6 +10,7 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter

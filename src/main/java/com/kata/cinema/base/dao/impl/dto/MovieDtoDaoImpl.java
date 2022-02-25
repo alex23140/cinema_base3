@@ -1,9 +1,9 @@
 package com.kata.cinema.base.dao.impl.dto;
 
 import com.kata.cinema.base.dao.abstracts.dto.MovieDtoDao;
-import com.kata.cinema.base.dao.abstracts.dto.PaginationDtoDao;
 import com.kata.cinema.base.models.dto.MovieDto;
-import org.hibernate.transform.ResultTransformer;
+import com.kata.cinema.base.transformer.MovieDtoResultTransformer;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,29 +20,14 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
     private EntityManager entityManager;
 
     @Override
-    public Optional<MovieDto> getById(Long id) {
-        try {
-            return Optional.of(entityManager.createQuery("""
-                            SELECT NEW com.kata.cinema.base.models.dto.MovieDto(
-                            m.id,
-                            m.name,
-                            m.country,
-                            m.dateRelease,
-                            m.rars,
-                            m.mpaa,
-                            m.description,
-                            m.previewIsExist,
-                            m.genres
-                            )
-                            FROM Movie m
-                            LEFT JOIN fetch m.genres
-                            WHERE m.id = :id
-                            """, MovieDto.class)
-                    .setParameter("id", id)
-                    .getSingleResult());
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
+    @SuppressWarnings("deprecation")
+    public MovieDto getById(Long id) {
+        // TODO убрать конструктор, делать селект movie и в трансформере оборачивать в dto
+        return (MovieDto) entityManager.createQuery(
+                        "")
+                .unwrap(Query.class)
+                .setResultTransformer(new MovieDtoResultTransformer())
+                .getSingleResult();
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Mapper(componentModel = "spring")
-public interface MovieMapper extends AbstractMapper<MovieDto, Movie> {
+public interface MovieMapper extends DtoMapper<MovieDto, Movie>, EntityMapper<MovieDto, Movie> {
 
 //    @Mapping(target = "genres", qualifiedByName = "genresToStrings")
 //    MovieDto toDto(Movie movie);

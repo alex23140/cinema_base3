@@ -1,11 +1,13 @@
 package com.kata.cinema.base.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.kata.cinema.base.models.enums.MPAA;
+import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.models.enums.TypeCharacter;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +15,22 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = {"id", "name"})
 public class MoviePersonDto {
+    private Long id;
+
+    @NotBlank
+    private String name;
+    private String country;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
+    private LocalDate dateRelease;
+
+    private RARS rars;
+    private MPAA mpaa;
+    private String description;
+    private Boolean previewIsExist = false;
+
     private List<String> genres;
     private Map<String, List<PersonInfoDto>> persons;
 }

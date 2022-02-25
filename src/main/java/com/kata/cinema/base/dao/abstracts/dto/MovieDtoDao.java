@@ -4,6 +4,6 @@ import com.kata.cinema.base.models.dto.MovieDto;
 
 import java.util.Optional;
 
-public interface MovieDtoDao extends  PaginationDtoDao<MovieDto>{
-    Optional<MovieDto> getById(Long id);
+public interface MovieDtoDao extends PaginationDtoDao<MovieDto> {
+    MovieDto getById(Long id);
 }

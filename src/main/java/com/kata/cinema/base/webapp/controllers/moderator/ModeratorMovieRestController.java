@@ -37,6 +37,7 @@ public class ModeratorMovieRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie));
     }
 
+    //TODO здесь отрефакторить под MoviePersonDto
     @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
