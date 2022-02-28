@@ -3,6 +3,7 @@ package com.kata.cinema.base.webapp.configs;
 import com.kata.cinema.base.models.entity.*;
 import com.kata.cinema.base.models.enums.Category;
 import com.kata.cinema.base.models.enums.MPAA;
+import com.kata.cinema.base.models.enums.Privacy;
 import com.kata.cinema.base.models.enums.RARS;
 import com.kata.cinema.base.service.abstracts.entity.WatchlistService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
@@ -21,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
+//import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
 import static com.kata.cinema.base.models.enums.Rubric.ABOUT_CINEMA;
 
 @Component
@@ -77,7 +78,7 @@ public class TestDataInitializer {
             user.setEmail("user" + i + "@mail.ru");
             user.setNickname("user" + i);
             user.setFirstName("Имя" + i);
-            user.setLastName("Фамилия"+ i);
+            user.setLastName("Фамилия" + i);
             user.setPassword("user");
             user.setBirthday(LocalDate.of(1995, 11, 12));
             user.setEnabled(true);
@@ -91,7 +92,7 @@ public class TestDataInitializer {
             admin.setEmail("admin" + i + "@mail.ru");
             admin.setNickname("admin" + i);
             admin.setFirstName("Имя" + i);
-            admin.setLastName("Фамилия"+ i);
+            admin.setLastName("Фамилия" + i);
             admin.setPassword("admin");
             admin.setBirthday(LocalDate.of(1995, 11, 12));
             admin.setEnabled(true);
@@ -131,29 +132,45 @@ public class TestDataInitializer {
     }
 
     public void addWatchlist(List<User> users) {
-        for (User user: users) {
-            Watchlist watchlist1 = new Watchlist();
-            Watchlist watchlist2 = new Watchlist();
-            Watchlist watchlist3 = new Watchlist();
 
-            watchlist1.setUser(user);
-            //TODO set Category и Privacy сделать по аналогии с фильмами
-            watchlist1.setCategory(Category.WAITING_MOVIES);
-            watchlist1.setPrivacy(PUBLIC);
-            watchlist1.setDescription("description");
-            watchlistService.update(watchlist1);
+        List<Category> categoryList = Arrays.asList(Category.WAITING_MOVIES, Category.FAVORITE_MOVIES, Category.WILL_WATCH);
+        List<Privacy> privacyList = Arrays.asList(Privacy.PUBLIC, Privacy.PUBLIC, Privacy.PUBLIC);
 
-            watchlist2.setUser(user);
-            watchlist2.setCategory(Category.FAVORITE_MOVIES);
-            watchlist2.setPrivacy(PUBLIC);
-            watchlist2.setDescription("description");
-            watchlistService.update(watchlist2);
-
-            watchlist3.setUser(user);
-            watchlist3.setCategory(Category.WILL_WATCH);
-            watchlist3.setPrivacy(PUBLIC);
-            watchlist3.setDescription("description");
-            watchlistService.update(watchlist3);
+        for (User user : users) {
+            for (int i = 0; i < categoryList.size(); i++) {
+                Watchlist watchlist1 = new Watchlist();
+                watchlist1.setUser(user);
+                watchlist1.setCategory(categoryList.get(random.nextInt(categoryList.size())));
+                watchlist1.setPrivacy(privacyList.get(random.nextInt(privacyList.size())));
+                watchlist1.setDescription("description");
+                watchlistService.update(watchlist1);
+            }
         }
+
+
+//        for (User user: users) {
+//            Watchlist watchlist1 = new Watchlist();
+//            Watchlist watchlist2 = new Watchlist();
+//            Watchlist watchlist3 = new Watchlist();
+//
+//            watchlist1.setUser(user);
+//            //TODO set Category и Privacy сделать по аналогии с фильмами
+//            watchlist1.setCategory(Category.WAITING_MOVIES);
+//            watchlist1.setPrivacy(PUBLIC);
+//            watchlist1.setDescription("description");
+//            watchlistService.update(watchlist1);
+//
+//            watchlist2.setUser(user);
+//            watchlist2.setCategory(Category.FAVORITE_MOVIES);
+//            watchlist2.setPrivacy(PUBLIC);
+//            watchlist2.setDescription("description");
+//            watchlistService.update(watchlist2);
+//
+//            watchlist3.setUser(user);
+//            watchlist3.setCategory(Category.WILL_WATCH);
+//            watchlist3.setPrivacy(PUBLIC);
+//            watchlist3.setDescription("description");
+//            watchlistService.update(watchlist3);
+//        }
     }
 }
