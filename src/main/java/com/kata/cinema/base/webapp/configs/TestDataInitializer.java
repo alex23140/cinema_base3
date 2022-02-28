@@ -1,10 +1,7 @@
 package com.kata.cinema.base.webapp.configs;
 
 import com.kata.cinema.base.models.entity.*;
-import com.kata.cinema.base.models.enums.Category;
-import com.kata.cinema.base.models.enums.MPAA;
-import com.kata.cinema.base.models.enums.Privacy;
-import com.kata.cinema.base.models.enums.RARS;
+import com.kata.cinema.base.models.enums.*;
 import com.kata.cinema.base.service.abstracts.entity.WatchlistService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
 import com.kata.cinema.base.service.abstracts.entity.NewsService;
@@ -23,7 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 //import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
-import static com.kata.cinema.base.models.enums.Rubric.ABOUT_CINEMA;
+//import static com.kata.cinema.base.models.enums.Rubric.ABOUT_CINEMA;
 
 @Component
 @ConditionalOnExpression("'${spring.jpa.hibernate.ddl-auto}'=='create'")
@@ -39,6 +36,7 @@ public class TestDataInitializer {
     private static final int COUNT_USERS = 10;
     private static final int COUNT_ADMINS = 2;
     private static final int COUNT_MOVIE = 20;
+    private static final int COUNT_NEWS = 20;
 
     public TestDataInitializer(RoleService roleService, UserService userService, MovieService movieService, NewsService newsService, WatchlistService watchlistService) {
         this.roleService = roleService;
@@ -47,7 +45,6 @@ public class TestDataInitializer {
         this.newsService = newsService;
         this.watchlistService = watchlistService;
     }
-
 
     @PostConstruct
     public void init() {
@@ -120,33 +117,33 @@ public class TestDataInitializer {
         }
     }
 
-    //TODO сделать по аналогии с Movie
     public void addNews() {
-        News news1 = new News();
+        List<Rubric> rubricList = Arrays.asList(Rubric.INTERVIEW, Rubric.ABOUT_CINEMA, Rubric.WHAT_IS_NEW);
 
-        news1.setRubric(ABOUT_CINEMA);
-        news1.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
-        news1.setTitle("title1");
-        news1.setDescription("description1");
-        newsService.update(news1);
+        for (int i = 1; i <= COUNT_NEWS; i++) {
+            News news1 = new News();
+
+            news1.setRubric(rubricList.get(random.nextInt(rubricList.size())));
+            news1.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
+            news1.setTitle("title " + i);
+            news1.setDescription("description1");
+            newsService.create(news1);
+        }
     }
 
     public void addWatchlist(List<User> users) {
 
         List<Category> categoryList = Arrays.asList(Category.WAITING_MOVIES, Category.FAVORITE_MOVIES, Category.WILL_WATCH);
-        List<Privacy> privacyList = Arrays.asList(Privacy.PUBLIC, Privacy.PUBLIC, Privacy.PUBLIC);
+        List<Privacy> privacyList = Arrays.asList(Privacy.PUBLIC, Privacy.PRIVATE);
 
         for (User user : users) {
-            for (int i = 0; i < categoryList.size(); i++) {
-                Watchlist watchlist1 = new Watchlist();
-                watchlist1.setUser(user);
-                watchlist1.setCategory(categoryList.get(random.nextInt(categoryList.size())));
-                watchlist1.setPrivacy(privacyList.get(random.nextInt(privacyList.size())));
-                watchlist1.setDescription("description");
-                watchlistService.update(watchlist1);
-            }
+            Watchlist watchlist = new Watchlist();
+            watchlist.setUser(user);
+            watchlist.setCategory(categoryList.get(random.nextInt(categoryList.size())));
+            watchlist.setPrivacy(privacyList.get(random.nextInt(privacyList.size())));
+            watchlist.setDescription("description");
+            watchlistService.create(watchlist);
         }
-
 
 //        for (User user: users) {
 //            Watchlist watchlist1 = new Watchlist();
