@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonInfoDto {
+public class PersonMovieDto {
     private Long id;
-    private String fullName; //конкатенировать
+    private String fullName;
     private String originalFullName;
     private TypeCharacter type;
     private String nameCharacter;

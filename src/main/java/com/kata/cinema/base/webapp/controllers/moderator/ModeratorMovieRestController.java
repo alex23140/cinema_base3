@@ -4,6 +4,7 @@ package com.kata.cinema.base.webapp.controllers.moderator;
 import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
+import com.kata.cinema.base.models.dto.MoviePersonDto;
 import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
@@ -29,6 +30,7 @@ public class ModeratorMovieRestController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
+    //TODO проверить сохранение жанров
     @ApiOperation(value = "Создание Movie", notes = "Создание Movie", response = MovieDto.class)
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
@@ -40,7 +42,7 @@ public class ModeratorMovieRestController {
     //TODO здесь отрефакторить под MoviePersonDto
     @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
-    public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
+    public ResponseEntity<MoviePersonDto> getMovie(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(movieDtoService.getById(id).get());
     }
 
