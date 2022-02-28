@@ -15,10 +15,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "news")
 public class News {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "news_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "news_gen", sequenceName = "news_id_seq", allocationSize = 1)
     private Long id;
 
     @Enumerated(EnumType.STRING)
