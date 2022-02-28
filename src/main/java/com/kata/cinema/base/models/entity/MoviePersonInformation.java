@@ -55,8 +55,8 @@ public class MoviePersonInformation {
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "movie_person_to_profession",
-            joinColumns = {@JoinColumn(name = "person_id", insertable = false, updatable = false),
-                    @JoinColumn(name = "movie_id", insertable = false, updatable = false)},
+            joinColumns = {@JoinColumn(name = "movie_id", insertable = false, updatable = false),
+                    @JoinColumn(name = "person_id", insertable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "profession_id")})
     private Set<Profession> professions;
 

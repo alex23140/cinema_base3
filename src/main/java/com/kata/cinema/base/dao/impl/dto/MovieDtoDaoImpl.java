@@ -26,7 +26,7 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
         try {
             return Optional.of((MoviePersonDto) entityManager.createQuery("""
                             SELECT  m.country,
-                                    m.dateRelese,
+                                    m.dateRelease,
                                     m.description,
                                     m.mpaa,
                                     m.name,
