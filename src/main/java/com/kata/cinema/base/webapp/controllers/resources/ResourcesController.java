@@ -3,29 +3,19 @@ package com.kata.cinema.base.webapp.controllers.resources;
 
 import lombok.AllArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.*;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
 import java.io.*;
-import java.nio.file.Files;
 
 @RestController
 @Validated
 @AllArgsConstructor
 @RequestMapping("/uploads")
+@Slf4j
 public class ResourcesController {
 
     @GetMapping(produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
@@ -42,10 +32,10 @@ public class ResourcesController {
             media = IOUtils.toByteArray(fin);
             return new ResponseEntity<>(media, headers, HttpStatus.OK);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            log.error("файл не найден ", new java.io.File("").getAbsolutePath() + path + "/" + imageName);
             return new ResponseEntity<>(media, headers, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return new ResponseEntity<>(media, headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
