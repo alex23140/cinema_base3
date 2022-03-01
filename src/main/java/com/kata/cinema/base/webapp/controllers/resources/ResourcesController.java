@@ -22,17 +22,14 @@ import java.awt.image.WritableRaster;
 import java.io.*;
 import java.nio.file.Files;
 
-@Controller
+@RestController
 @Validated
 @AllArgsConstructor
 @RequestMapping("/uploads")
 public class ResourcesController {
 
-    @GetMapping(
-            produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE}
-    )
-    public @ResponseBody
-    ResponseEntity<byte[]> getImageWithMediaType(HttpServletRequest request) {
+    @GetMapping(produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+    public ResponseEntity<byte[]> getImageWithMediaType(HttpServletRequest request) {
 
         String imageName = request.getParameter("imageName");
         String path = request.getParameter("path");
