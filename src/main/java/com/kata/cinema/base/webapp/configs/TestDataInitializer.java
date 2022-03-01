@@ -138,13 +138,13 @@ public class TestDataInitializer {
         List<Rubric> rubricList = Arrays.asList(Rubric.INTERVIEW, Rubric.ABOUT_CINEMA, Rubric.WHAT_IS_NEW);
 
         for (int i = 1; i <= COUNT_NEWS; i++) {
-            News news1 = new News();
+            News news = new News();
 
-            news1.setRubric(rubricList.get(random.nextInt(rubricList.size())));
-            news1.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
-            news1.setTitle("title " + i);
-            news1.setDescription("description1");
-            newsService.create(news1);
+            news.setRubric(rubricList.get(random.nextInt(rubricList.size())));
+            news.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
+            news.setTitle("title " + i);
+            news.setDescription("description1");
+            newsService.create(news);
         }
     }
 
@@ -189,17 +189,20 @@ public class TestDataInitializer {
         for (int i = 1; i <= COUNT_M_P_I; i++) {
 
             Movie movie = randomMovies();
-            Person person = randomPerson();
 
-            MoviePersonInformation moviePersonInformation = new MoviePersonInformation();
+            for (int j = 0; j < 1 + random.nextInt(COUNT_PERSON / 3); j++) {
+                Person person = randomPerson();
 
-            moviePersonInformation.setId(new MoviePersonInformation.Id(movie.getId(), person.getId()));
+                MoviePersonInformation moviePersonInformation = new MoviePersonInformation();
 
-            moviePersonInformation.setMovie(movie);
-            moviePersonInformation.setPerson(person);
-            moviePersonInformation.setProfessions(randomSetProfession());
+                moviePersonInformation.setId(new MoviePersonInformation.Id(movie.getId(), person.getId()));
 
-            moviePersonInformationService.create(moviePersonInformation);
+                moviePersonInformation.setMovie(movie);
+                moviePersonInformation.setPerson(person);
+                moviePersonInformation.setProfessions(randomSetProfession());
+
+                moviePersonInformationService.create(moviePersonInformation);
+            }
         }
     }
 
