@@ -187,13 +187,19 @@ public class TestDataInitializer {
     public void addMoviePersonInformation() {
 
         for (int i = 1; i <= COUNT_M_P_I; i++) {
+
+            Movie movie = randomMovies();
+            Person person = randomPerson();
+
             MoviePersonInformation moviePersonInformation = new MoviePersonInformation();
 
-            moviePersonInformation.setMovie(randomMovies());
-            moviePersonInformation.setPerson(randomPerson());
+            moviePersonInformation.setId(new MoviePersonInformation.Id(movie.getId(), person.getId()));
+
+            moviePersonInformation.setMovie(movie);
+            moviePersonInformation.setPerson(person);
             moviePersonInformation.setProfessions(randomSetProfession());
-/// не работает сохранение
-          //  moviePersonInformationService.create(moviePersonInformation);
+
+            moviePersonInformationService.create(moviePersonInformation);
         }
     }
 
