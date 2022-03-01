@@ -29,6 +29,12 @@ public class Person {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "original_first_name")
+    private String originalFirstName;
+
+    @Column(name = "original_lasst_name")
+    private String originalLastName;
+
     @Column(name = "growth")
     private Double growth;
 

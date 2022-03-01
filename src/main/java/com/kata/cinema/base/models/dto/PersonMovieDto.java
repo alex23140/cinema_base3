@@ -12,6 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PersonMovieDto {
     private Long id;
+    //TODO добавить originalFullName в таблицу
     private String fullName;
     private String originalFullName;
     private TypeCharacter type;
