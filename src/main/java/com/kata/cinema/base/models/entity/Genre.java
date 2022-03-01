@@ -14,9 +14,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "genres")
 public class Genre {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "genre_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "genre_gen", sequenceName = "genre_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name", nullable = false, unique = true)
