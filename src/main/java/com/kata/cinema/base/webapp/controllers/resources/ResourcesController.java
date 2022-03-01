@@ -28,7 +28,7 @@ import java.nio.file.Files;
 @RequestMapping("/uploads")
 public class ResourcesController {
 
-    @GetMapping(   produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE}  )
+    @GetMapping(produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
     public ResponseEntity<byte[]> getImageWithMediaType(HttpServletRequest request) {
 
         String imageName = request.getParameter("imageName");
@@ -46,7 +46,7 @@ public class ResourcesController {
             return new ResponseEntity<>(media, headers, HttpStatus.BAD_REQUEST);
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<>(media, headers, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(media, headers, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
