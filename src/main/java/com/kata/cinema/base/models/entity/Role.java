@@ -15,10 +15,9 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
+    @GeneratedValue(generator = "roles_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "roles_gen", sequenceName = "roles_id_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "name", nullable = false)

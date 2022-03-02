@@ -1,7 +1,5 @@
 package com.kata.cinema.base.webapp.controllers.moderator;
 
-
-import com.kata.cinema.base.dao.abstracts.model.MovieDao;
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.dto.MoviePersonDto;

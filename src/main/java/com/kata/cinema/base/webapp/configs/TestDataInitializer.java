@@ -1,14 +1,8 @@
 package com.kata.cinema.base.webapp.configs;
 
 import com.kata.cinema.base.models.entity.*;
-import com.kata.cinema.base.models.enums.Category;
-import com.kata.cinema.base.models.enums.MPAA;
-import com.kata.cinema.base.models.enums.RARS;
-import com.kata.cinema.base.service.abstracts.entity.WatchlistService;
-import com.kata.cinema.base.service.abstracts.entity.MovieService;
-import com.kata.cinema.base.service.abstracts.entity.NewsService;
-import com.kata.cinema.base.service.abstracts.entity.RoleService;
-import com.kata.cinema.base.service.abstracts.entity.UserService;
+import com.kata.cinema.base.models.enums.*;
+import com.kata.cinema.base.service.abstracts.entity.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +10,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import static com.kata.cinema.base.models.enums.Privacy.PUBLIC;
-import static com.kata.cinema.base.models.enums.Rubric.ABOUT_CINEMA;
+import java.util.*;
 
 @Component
 @ConditionalOnExpression("'${spring.jpa.hibernate.ddl-auto}'=='create'")
@@ -33,27 +21,72 @@ public class TestDataInitializer {
     private final MovieService movieService;
     private final NewsService newsService;
     private final WatchlistService watchlistService;
+    private final GenreService genreService;
+    private final ProfessionService professionService;
+    private final PersonService personService;
+    private final MoviePersonInformationService moviePersonInformationService;
 
     private final Random random = new Random(System.currentTimeMillis());
     private static final int COUNT_USERS = 10;
     private static final int COUNT_ADMINS = 2;
     private static final int COUNT_MOVIE = 20;
+    private static final int COUNT_NEWS = 20;
+    private static final int COUNT_PERSON = 20;
+    private static final int COUNT_GENRE = 10;
+    private static final int COUNT_PROFESSION = 20;
+    private static final int COUNT_M_P_I = 5;
 
-    public TestDataInitializer(RoleService roleService, UserService userService, MovieService movieService, NewsService newsService, WatchlistService watchlistService) {
+    public TestDataInitializer(RoleService roleService, UserService userService, MovieService movieService, NewsService newsService, WatchlistService watchlistService, GenreService genreService, ProfessionService professionService, PersonService personService, MoviePersonInformationService moviePersonInformationService) {
         this.roleService = roleService;
         this.userService = userService;
         this.movieService = movieService;
         this.newsService = newsService;
         this.watchlistService = watchlistService;
-    }
+        this.genreService = genreService;
+        this.professionService = professionService;
+        this.personService = personService;
+        this.moviePersonInformationService = moviePersonInformationService;
 
+    }
 
     @PostConstruct
     public void init() {
+        addGenre();
+        addProfession();
+        addPerson();
         addRole();
-        addUser();
         addMovie();
+        addUser();
         addNews();
+        addMoviePersonInformation();
+    }
+
+    public void addGenre() {
+        for (int i = 0; i < COUNT_GENRE; i++) {
+            Genre genre = new Genre();
+            genre.setName("Genre" + i);
+            genreService.create(genre);
+        }
+    }
+
+    public void addProfession() {
+        for (int i = 0; i < COUNT_PROFESSION; i++) {
+            Profession profession = new Profession();
+            profession.setName("Profession" + i);
+            professionService.create(profession);
+        }
+    }
+
+    public void addPerson() {
+        for (int i = 0; i < COUNT_PERSON; i++) {
+            Person person = new Person();
+            person.setFirstName("firstName" + i);
+            person.setLastName("lastName" + i);
+            person.setGrowth(4.3);
+            person.setBirthday(LocalDate.of(2022, 1, 12));
+            person.setPlaceBirth("placeBirth" + i);
+            personService.create(person);
+        }
     }
 
     public void addRole() {
@@ -77,7 +110,7 @@ public class TestDataInitializer {
             user.setEmail("user" + i + "@mail.ru");
             user.setNickname("user" + i);
             user.setFirstName("Имя" + i);
-            user.setLastName("Фамилия"+ i);
+            user.setLastName("Фамилия" + i);
             user.setPassword("user");
             user.setBirthday(LocalDate.of(1995, 11, 12));
             user.setEnabled(true);
@@ -91,7 +124,7 @@ public class TestDataInitializer {
             admin.setEmail("admin" + i + "@mail.ru");
             admin.setNickname("admin" + i);
             admin.setFirstName("Имя" + i);
-            admin.setLastName("Фамилия"+ i);
+            admin.setLastName("Фамилия" + i);
             admin.setPassword("admin");
             admin.setBirthday(LocalDate.of(1995, 11, 12));
             admin.setEnabled(true);
@@ -99,6 +132,20 @@ public class TestDataInitializer {
             userService.create(admin);
         }
         addWatchlist(users);
+    }
+
+    public void addNews() {
+        List<Rubric> rubricList = Arrays.asList(Rubric.INTERVIEW, Rubric.ABOUT_CINEMA, Rubric.WHAT_IS_NEW);
+
+        for (int i = 1; i <= COUNT_NEWS; i++) {
+            News news = new News();
+
+            news.setRubric(rubricList.get(random.nextInt(rubricList.size())));
+            news.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
+            news.setTitle("title " + i);
+            news.setDescription("description1");
+            newsService.create(news);
+        }
     }
 
     public void addMovie() {
@@ -115,45 +162,96 @@ public class TestDataInitializer {
             movie.setMpaa(mpaaList.get(random.nextInt(mpaaList.size())));
             movie.setDescription("description");
             movie.setPreviewIsExist(false);
-            movieService.update(movie);
+            movie.setGenres(randomSetGenres());
+            movieService.create(movie);
         }
-    }
-
-    //TODO сделать по аналогии с Movie
-    public void addNews() {
-        News news1 = new News();
-
-        news1.setRubric(ABOUT_CINEMA);
-        news1.setDate(LocalDateTime.of(LocalDate.of(2022, 1, 12), LocalTime.of(12, 21, 12)));
-        news1.setTitle("title1");
-        news1.setDescription("description1");
-        newsService.update(news1);
     }
 
     public void addWatchlist(List<User> users) {
-        for (User user: users) {
-            Watchlist watchlist1 = new Watchlist();
-            Watchlist watchlist2 = new Watchlist();
-            Watchlist watchlist3 = new Watchlist();
 
-            watchlist1.setUser(user);
-            //TODO set Category и Privacy сделать по аналогии с фильмами
-            watchlist1.setCategory(Category.WAITING_MOVIES);
-            watchlist1.setPrivacy(PUBLIC);
-            watchlist1.setDescription("description");
-            watchlistService.update(watchlist1);
+        List<Category> categoryList = Arrays.asList(Category.WAITING_MOVIES, Category.FAVORITE_MOVIES, Category.WILL_WATCH);
+        List<Privacy> privacyList = Arrays.asList(Privacy.PUBLIC, Privacy.PRIVATE);
 
-            watchlist2.setUser(user);
-            watchlist2.setCategory(Category.FAVORITE_MOVIES);
-            watchlist2.setPrivacy(PUBLIC);
-            watchlist2.setDescription("description");
-            watchlistService.update(watchlist2);
-
-            watchlist3.setUser(user);
-            watchlist3.setCategory(Category.WILL_WATCH);
-            watchlist3.setPrivacy(PUBLIC);
-            watchlist3.setDescription("description");
-            watchlistService.update(watchlist3);
+        for (User user : users) {
+            Watchlist watchlist = new Watchlist();
+            watchlist.setUser(user);
+            watchlist.setCategory(categoryList.get(random.nextInt(categoryList.size())));
+            watchlist.setPrivacy(privacyList.get(random.nextInt(privacyList.size())));
+            watchlist.setDescription("description");
+            /// добавляем список фильмов
+            watchlist.setMovies(randomSetMovies());
+            watchlistService.create(watchlist);
         }
     }
+
+    public void addMoviePersonInformation() {
+
+        for (int i = 1; i <= COUNT_M_P_I; i++) {
+
+            Movie movie = randomMovies();
+
+            for (int j = 0; j < 1 + random.nextInt(COUNT_PERSON / 3); j++) {
+                Person person = randomPerson();
+
+                MoviePersonInformation moviePersonInformation = new MoviePersonInformation();
+
+                moviePersonInformation.setId(new MoviePersonInformation.Id(movie.getId(), person.getId()));
+
+                moviePersonInformation.setMovie(movie);
+                moviePersonInformation.setPerson(person);
+                moviePersonInformation.setProfessions(randomSetProfession());
+
+                moviePersonInformationService.create(moviePersonInformation);
+            }
+        }
+    }
+
+    private Set<Movie> randomSetMovies() {
+        Set<Movie> movieSet = new HashSet<>();
+
+        List<Movie> movieList = movieService.getAll();
+
+        for (int i = 0; i < random.nextInt(movieList.size()); i++) {
+            movieSet.add(randomMovies());
+        }
+
+        return movieSet;
+    }
+
+    private Movie randomMovies() {
+
+        List<Movie> movieList = movieService.getAll();
+        return movieList.get(random.nextInt(movieList.size()));
+    }
+
+    private Set<Genre> randomSetGenres() {
+        Set<Genre> genreSet = new HashSet<>();
+
+        List<Genre> genreList = genreService.getAll();
+
+        for (int i = 0; i < random.nextInt(genreList.size()); i++) {
+            genreSet.add(genreList.get(random.nextInt(genreList.size())));
+        }
+
+        return genreSet;
+    }
+
+    private Person randomPerson() {
+
+        List<Person> personList = personService.getAll();
+        return personList.get(random.nextInt(personList.size()));
+    }
+
+    private Set<Profession> randomSetProfession() {
+        Set<Profession> professionSet = new HashSet<>();
+
+        List<Profession> professionList = professionService.getAll();
+
+        for (int i = 0; i < random.nextInt(professionList.size()); i++) {
+            professionSet.add(professionList.get(random.nextInt(professionList.size())));
+        }
+
+        return professionSet;
+    }
+
 }
