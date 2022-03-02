@@ -46,14 +46,14 @@ public class UserWatchlistRestController extends CinemaBaseApplicationTests {
             "/dataset/UserWatchlistRestController/role.xml",
             "/dataset/UserWatchlistRestController/user.xml",
             "/dataset/UserWatchlistRestController/watchlist.xml",
-            "/dataset/ModeratorMovieRestController/movies.xml"
+            "/dataset/ModeratorMovieRestController/movie.xml"
     },
             type = DatabaseOperation.CLEAN_INSERT)
     @DatabaseTearDown(value = {
             "/dataset/UserWatchlistRestController/role.xml",
             "/dataset/UserWatchlistRestController/user.xml",
             "/dataset/UserWatchlistRestController/watchlist.xml",
-            "/dataset/ModeratorMovieRestController/movies.xml",
+            "/dataset/ModeratorMovieRestController/movie.xml",
             "/dataset/UserWatchlistRestController/watchlist_movie.xml"
     },
             type = DatabaseOperation.DELETE_ALL)

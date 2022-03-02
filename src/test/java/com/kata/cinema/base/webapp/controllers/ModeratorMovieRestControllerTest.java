@@ -21,7 +21,7 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
 
     @Test
     @DatabaseSetup(value = {
-            "/dataset/ModeratorMovieRestController/movies.xml",
+            "/dataset/ModeratorMovieRestController/movie.xml",
             "/dataset/ModeratorMovieRestController/genres.xml",
             "/dataset/ModeratorMovieRestController/persons.xml",
             "/dataset/ModeratorMovieRestController/professions.xml",
@@ -30,7 +30,7 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
             "/dataset/ModeratorMovieRestController/movie_person_to_profession.xml"},
             type = DatabaseOperation.CLEAN_INSERT)
     @DatabaseTearDown(value = {
-            "/dataset/ModeratorMovieRestController/movies.xml",
+            "/dataset/ModeratorMovieRestController/movie.xml",
             "/dataset/ModeratorMovieRestController/genres.xml",
             "/dataset/ModeratorMovieRestController/persons.xml",
             "/dataset/ModeratorMovieRestController/professions.xml",
@@ -56,7 +56,7 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
   }
 
     @Test
-    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movies.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldCreateMovie() throws Exception {
         //создаем
         MovieDto movieDto = new MovieDto();
