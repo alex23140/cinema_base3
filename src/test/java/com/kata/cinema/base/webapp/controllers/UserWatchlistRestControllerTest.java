@@ -19,8 +19,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests {
 
     @Test
-    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.DELETE_ALL)
     public void shouldReturnWatchlist() throws Exception {
         this.mockMvc.perform(get("/api/user/watchlist/1"))
                 .andExpect(status().isOk())
@@ -33,16 +43,36 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
     }
 
     @Test
-    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.DELETE_ALL)
     public void shouldReturnWatchlistError() throws Exception {
         this.mockMvc.perform(get("/api/user/watchlist/200"))
                 .andExpect(status().is5xxServerError());
     }
 
     @Test
-    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.DELETE_ALL)
     public void givenWatchlist_whenAdd_thenStatus400andWatchlistReturned() throws Exception {
 
         Optional<WatchlistDto> watchlistDtoNew =findWatchlistDtoById(1L);
@@ -56,8 +86,18 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
     }
 
     @Test
-    @DatabaseSetup(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {"/dataset/UserWatchlistRestController/roles.xml", "/dataset/UserWatchlistRestController/users.xml", "/dataset/UserWatchlistRestController/watchlist.xml"}, type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {
+            "/dataset/UserWatchlistRestController/roles.xml",
+            "/dataset/UserWatchlistRestController/users.xml",
+            "/dataset/UserWatchlistRestController/watchlist.xml"
+    },
+            type = DatabaseOperation.DELETE_ALL)
     public void givenWatchlist_whenPut_thenStatus400andWatchlistReturned() throws Exception {
 
         Optional<WatchlistDto> watchlistDto =findWatchlistDtoById(1L);
