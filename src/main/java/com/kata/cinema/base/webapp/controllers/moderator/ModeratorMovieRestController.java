@@ -43,6 +43,8 @@ public class ModeratorMovieRestController {
     @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<MoviePersonDto> getMovie(@Positive @PathVariable("id") Long id) {
+        MoviePersonDto moviePersonDto = movieDtoService.getById(id).get();
+
         return ResponseEntity.ok().body(movieDtoService.getById(id).get());
     }
 

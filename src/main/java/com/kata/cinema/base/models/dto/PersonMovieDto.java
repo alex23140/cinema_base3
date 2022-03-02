@@ -1,15 +1,13 @@
 package com.kata.cinema.base.models.dto;
 
 import com.kata.cinema.base.models.enums.TypeCharacter;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = {"id", "fullName"})
 public class PersonMovieDto {
     private Long id;
     //TODO добавить originalFullName в таблицу

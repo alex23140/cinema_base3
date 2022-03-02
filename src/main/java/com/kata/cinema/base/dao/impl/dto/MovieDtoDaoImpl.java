@@ -3,6 +3,7 @@ package com.kata.cinema.base.dao.impl.dto;
 import com.kata.cinema.base.dao.abstracts.dto.MovieDtoDao;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.models.dto.MoviePersonDto;
+import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.transformer.MovieDtoResultTransformer;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,25 +27,30 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
     public Optional<MoviePersonDto> getById(Long id) {
         try {
             return Optional.of((MoviePersonDto) entityManager.createQuery("""
-                            SELECT  m.country,
-                                    m.dateRelease,
-                                    m.description,
-                                    m.mpaa,
-                                    m.name,
-                                    m.previewIsExist,
-                                    m.rars,
-                                    g.name,
-                                    p.birthday,
-                                    p.first_name,
-                                    p.growth,
-                                    p.last_name,
-                                    p.place_of_birth,
-                                    pr.name
-                            FROM Movie m
-                            JOIN m.genres
-                            WHERE m.id= :id
+                            SELECT
+                            m.movie.name,
+                            m.movie.country,
+                            m.movie.description,
+                            m.movie.previewIsExist,
+                            m.movie.dateRelease,
+                            g.name,
+                            m.movie.rars,
+                            m.movie.mpaa,
+                            m.person.firstName,
+                            m.person.lastName,
+                            m.person.originalFirstName,
+                            m.person.originalLastName,
+                            m.nameCharacter,
+                            m.type,
+                            p.name
+                            FROM MoviePersonInformation m
+                            JOIN m.movie.genres g
+                            JOIN m.professions p
+                            WHERE m.movie.id= :id
                             """)
                     .setParameter("id", id)
+                    .unwrap(org.hibernate.query.Query.class)
+                    .setResultTransformer(new MovieDtoResultTransformer())
                     .getSingleResult());
         } catch (NoResultException e) {
             return Optional.empty();

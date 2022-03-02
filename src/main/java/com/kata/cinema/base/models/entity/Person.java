@@ -32,7 +32,7 @@ public class Person {
     @Column(name = "original_first_name")
     private String originalFirstName;
 
-    @Column(name = "original_lasst_name")
+    @Column(name = "original_last_name")
     private String originalLastName;
 
     @Column(name = "growth")
