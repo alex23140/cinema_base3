@@ -17,22 +17,22 @@ public class MovieDtoResultTransformer implements ResultTransformer {
     @Override
     public Object transformTuple(Object[] objects, String[] strings) {
         MoviePersonFromQuery moviePersonFromQuery = new MoviePersonFromQuery();
-
-        moviePersonFromQuery.setName(objects[0].toString());
-        moviePersonFromQuery.setCountry(objects[1].toString());
-        moviePersonFromQuery.setDescription(objects[2].toString());
-        moviePersonFromQuery.setPreviewIsExist((Boolean) objects[3]);
-        moviePersonFromQuery.setDateRelease(LocalDate.parse(objects[4].toString()));
-        moviePersonFromQuery.setGenre(objects[5].toString());
-        moviePersonFromQuery.setRars((RARS) objects[6]);
-        moviePersonFromQuery.setMpaa((MPAA) objects[7]);
-        moviePersonFromQuery.setPersonName(objects[8].toString());
-        moviePersonFromQuery.setPersonLastname(objects[9].toString());
-        moviePersonFromQuery.setPersonOriginalName(objects[10].toString());
-        moviePersonFromQuery.setPersonOriginalLastname(objects[11].toString());
-        moviePersonFromQuery.setCharacterName(objects[12].toString());
-        moviePersonFromQuery.setType((TypeCharacter) objects[13]);
-        moviePersonFromQuery.setProfession(objects[14].toString());
+        moviePersonFromQuery.setId((Long) objects[0]);
+        moviePersonFromQuery.setName(objects[1].toString());
+        moviePersonFromQuery.setCountry(objects[2].toString());
+        moviePersonFromQuery.setDescription(objects[3].toString());
+        moviePersonFromQuery.setPreviewIsExist((Boolean) objects[4]);
+        moviePersonFromQuery.setDateRelease(LocalDate.parse(objects[5].toString()));
+        moviePersonFromQuery.setGenre(objects[6].toString());
+        moviePersonFromQuery.setRars((RARS) objects[7]);
+        moviePersonFromQuery.setMpaa((MPAA) objects[8]);
+        moviePersonFromQuery.setPersonName(objects[9].toString());
+        moviePersonFromQuery.setPersonLastname(objects[10].toString());
+        moviePersonFromQuery.setPersonOriginalName(objects[11].toString());
+        moviePersonFromQuery.setPersonOriginalLastname(objects[12].toString());
+        moviePersonFromQuery.setCharacterName(objects[13].toString());
+        moviePersonFromQuery.setType((TypeCharacter) objects[14]);
+        moviePersonFromQuery.setProfession(objects[15].toString());
 
         return moviePersonFromQuery;
     }
@@ -43,6 +43,7 @@ public class MovieDtoResultTransformer implements ResultTransformer {
 
         // основная информация о фильме
         MoviePersonDto moviePersonDto = new MoviePersonDto();
+        moviePersonDto.setId(moviePersonFromQueries.get(0).id);
         moviePersonDto.setName(moviePersonFromQueries.get(0).name);
         moviePersonDto.setCountry(moviePersonFromQueries.get(0).country);
         moviePersonDto.setDescription(moviePersonFromQueries.get(0).description);
@@ -82,6 +83,7 @@ public class MovieDtoResultTransformer implements ResultTransformer {
     @Getter
     @Setter
     private static class MoviePersonFromQuery {
+        private Long id;
         private String name;
         private String country;
         private String description;

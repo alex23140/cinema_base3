@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <movie_person_to_profession
+            movie_id="1"
+            person_id="1"
+            profession_id="1"
+    />
+    <movie_person_to_profession
+            movie_id="1"
+            person_id="2"
+            profession_id="1"
+    />
+    <movie_person_to_profession
+            movie_id="1"
+            person_id="3"
+            profession_id="3"
+    />
+</dataset>

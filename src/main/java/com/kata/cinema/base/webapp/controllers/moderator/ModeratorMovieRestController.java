@@ -28,7 +28,6 @@ public class ModeratorMovieRestController {
     private final MovieService movieService;
     private final MovieMapper movieMapper;
 
-    //TODO проверить сохранение жанров
     @ApiOperation(value = "Создание Movie", notes = "Создание Movie", response = MovieDto.class)
     @PostMapping
     public ResponseEntity<MovieDto> saveMovie(@Valid @RequestBody MovieDto movieDto) {
@@ -37,18 +36,15 @@ public class ModeratorMovieRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(movieMapper.toDto(movie));
     }
 
-    //TODO здесь отрефакторить под MoviePersonDto
     @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
     public ResponseEntity<MoviePersonDto> getMovie(@Positive @PathVariable("id") Long id) {
-        MoviePersonDto moviePersonDto = movieDtoService.getById(id).get();
-
         return ResponseEntity.ok().body(movieDtoService.getById(id).get());
     }
 
     @PostMapping("/{id}/uploadPreview")
-     public ResponseEntity<?> uploadPreview(@PathVariable("id") Long id,
-                                            @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadPreview(@PathVariable("id") Long id,
+                                           @RequestParam("file") MultipartFile file) {
         Optional<Movie> movieOptional = movieService.getById(id);
         ApiValidationUtils.requireTrue(movieOptional.isPresent(), "фильма с таким id не существует");
         ApiValidationUtils.requireFalse(file.isEmpty(), "пришел пустой файл");

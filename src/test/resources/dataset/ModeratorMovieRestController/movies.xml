@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <movies
+            id="1"
+            country="rus2"
+            date_release="2020-10-10"
+            description="test2"
+            mpaa="PARENTAL_GUIDANCE_SUGGESTED"
+            name="movie2"
+            preview_is_exist="true"
+            rars="SIX_PLUS"
+    />
+</dataset>

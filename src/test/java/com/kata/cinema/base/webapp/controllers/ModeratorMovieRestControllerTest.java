@@ -6,8 +6,10 @@ import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.jayway.jsonpath.JsonPath;
 import com.kata.cinema.base.models.dto.MovieDto;
 import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,8 +21,24 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests {
 
     @Test
-    @DatabaseSetup(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseSetup(value = {
+            "/dataset/ModeratorMovieRestController/movies.xml",
+            "/dataset/ModeratorMovieRestController/genres.xml",
+            "/dataset/ModeratorMovieRestController/persons.xml",
+            "/dataset/ModeratorMovieRestController/professions.xml",
+            "/dataset/ModeratorMovieRestController/movies_genres.xml",
+            "/dataset/ModeratorMovieRestController/movie_person.xml",
+            "/dataset/ModeratorMovieRestController/movie_person_to_profession.xml"},
+            type = DatabaseOperation.CLEAN_INSERT)
+    @DatabaseTearDown(value = {
+            "/dataset/ModeratorMovieRestController/movies.xml",
+            "/dataset/ModeratorMovieRestController/genres.xml",
+            "/dataset/ModeratorMovieRestController/persons.xml",
+            "/dataset/ModeratorMovieRestController/professions.xml",
+            "/dataset/ModeratorMovieRestController/movies_genres.xml",
+            "/dataset/ModeratorMovieRestController/movie_person.xml",
+            "/dataset/ModeratorMovieRestController/movie_person_to_profession.xml"},
+            type = DatabaseOperation.DELETE_ALL)
     public void shouldReturnMovie() throws Exception {
         this.mockMvc.perform(get("/api/moderator/movie/1"))
                 .andExpect(status().isOk())
@@ -32,11 +50,14 @@ public class ModeratorMovieRestControllerTest extends CinemaBaseApplicationTests
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").value("test2"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.mpaa").value("PARENTAL_GUIDANCE_SUGGESTED"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.previewIsExist").value("true"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("SIX_PLUS"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.rars").value("SIX_PLUS"))
+                .andExpect((MockMvcResultMatchers.jsonPath("$.genres", Matchers.containsInAnyOrder("Драма", "Ужасы"))))
+                .andExpect((MockMvcResultMatchers.jsonPath("$.persons", Matchers.hasKey("Актер"))))
+                .andExpect((MockMvcResultMatchers.jsonPath("$.persons", Matchers.hasKey("Сценарист"))));
     }
 
     @Test
-    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movie.xml", type = DatabaseOperation.DELETE_ALL)
+    @DatabaseTearDown(value = "/dataset/ModeratorMovieRestController/movies.xml", type = DatabaseOperation.DELETE_ALL)
     public void shouldCreateMovie() throws Exception {
         //создаем
         MovieDto movieDto = new MovieDto();
