@@ -14,40 +14,4 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper extends DtoMapper<MovieDto, Movie>, EntityMapper<MovieDto, Movie> {
-
-//    @Mapping(target = "genres", qualifiedByName = "genresToStrings")
-//    MovieDto toDto(Movie movie);
-//
-//    @Mapping(target = "genres", qualifiedByName = "stringsToGenres")
-//    Movie toEntity(MovieDto movieDto);
-//
-//    @Named("genresToStrings")
-//    static List<String> genresToStrings(Set<Genre> genres) {
-//        if (genres == null) {
-//            return null;
-//        }
-//
-//        List<String> names = new ArrayList<>();
-//        for (Genre genre : genres) {
-//            names.add(genre.getName());
-//        }
-//
-//        return names;
-//    }
-//
-//    @Named("stringsToGenres")
-//    static Set<Genre> stringsToGenres(List<String> names) {
-//        if (names == null) {
-//            return null;
-//        }
-//
-//        Set<Genre> genres = new HashSet<>();
-//        for (String name : names) {
-//            Genre genre = new Genre();
-//            genre.setName(name);
-//            genres.add(genre);
-//        }
-//
-//        return genres;
-//    }
 }

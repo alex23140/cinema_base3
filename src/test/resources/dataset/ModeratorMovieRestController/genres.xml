@@ -1,0 +1,10 @@
+<dataset>
+    <genres
+            id="1"
+            name="Драма"
+    />
+    <genres
+            id="2"
+            name="Ужасы"
+    />
+</dataset>

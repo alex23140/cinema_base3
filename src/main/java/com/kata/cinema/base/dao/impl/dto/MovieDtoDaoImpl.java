@@ -28,6 +28,7 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
         try {
             return Optional.of((MoviePersonDto) entityManager.createQuery("""
                             SELECT
+                            m.movie.id,
                             m.movie.name,
                             m.movie.country,
                             m.movie.description,
@@ -47,6 +48,7 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
                             JOIN m.movie.genres g
                             JOIN m.professions p
                             WHERE m.movie.id= :id
+                               AND m.type <> 1
                             """)
                     .setParameter("id", id)
                     .unwrap(org.hibernate.query.Query.class)
