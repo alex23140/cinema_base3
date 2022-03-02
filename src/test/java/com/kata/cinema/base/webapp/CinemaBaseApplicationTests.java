@@ -2,6 +2,8 @@ package com.kata.cinema.base.webapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.kata.cinema.base.dao.impl.dto.WatchlistDtoDaoImpl;
+import com.kata.cinema.base.models.dto.WatchlistDto;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,10 @@ public class CinemaBaseApplicationTests {
 
     @Autowired
     protected MockMvc mockMvc;
+
+
+    @Autowired
+    protected WatchlistDtoDaoImpl watchlistDtoDao;
 
     @PersistenceContext
     protected EntityManager entityManager;

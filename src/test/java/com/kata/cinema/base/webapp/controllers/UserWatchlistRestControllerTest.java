@@ -3,9 +3,11 @@ package com.kata.cinema.base.webapp.controllers;
 import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
+import com.kata.cinema.base.dao.impl.dto.WatchlistDtoDaoImpl;
 import com.kata.cinema.base.models.dto.WatchlistDto;
 import com.kata.cinema.base.webapp.CinemaBaseApplicationTests;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests {
+
 
     @Test
     @DatabaseSetup(value = {
@@ -75,7 +78,7 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
             type = DatabaseOperation.DELETE_ALL)
     public void givenWatchlist_whenAdd_thenStatus400andWatchlistReturned() throws Exception {
 
-        Optional<WatchlistDto> watchlistDtoNew =findWatchlistDtoById(1L);
+        Optional<WatchlistDto> watchlistDtoNew = watchlistDtoDao.findWatchlistDtoById(1L);
         watchlistDtoNew.get().setId(null);
 
         this.mockMvc.perform(
@@ -100,7 +103,7 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
             type = DatabaseOperation.DELETE_ALL)
     public void givenWatchlist_whenPut_thenStatus400andWatchlistReturned() throws Exception {
 
-        Optional<WatchlistDto> watchlistDto =findWatchlistDtoById(1L);
+        Optional<WatchlistDto> watchlistDto = watchlistDtoDao.findWatchlistDtoById(1L);
 
         this.mockMvc.perform(
                         put("/api/user/watchlist")
