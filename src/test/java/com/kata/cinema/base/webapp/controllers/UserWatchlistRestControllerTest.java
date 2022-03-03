@@ -60,7 +60,7 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
             type = DatabaseOperation.DELETE_ALL)
     public void shouldReturnWatchlistError() throws Exception {
         this.mockMvc.perform(get("/api/user/watchlist/200"))
-                .andExpect(status().is5xxServerError());
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
                         post("/api/user/watchlist/")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(watchlistDtoNew.get())))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().is5xxServerError());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(watchlistDto.get()))
                 )
-                .andExpect(status().isBadRequest());
+                .andExpect(status().is5xxServerError());
     }
 }
 
