@@ -112,24 +112,5 @@ public class UserWatchlistRestControllerTest extends CinemaBaseApplicationTests 
                 )
                 .andExpect(status().isBadRequest());
     }
-
-    public Optional<WatchlistDto> findWatchlistDtoById(Long id) {
-        try {
-            return Optional.of(entityManager.createQuery("""
-                            SELECT NEW com.kata.cinema.base.models.dto.WatchlistDto(
-                            w.id,
-                            w.category,
-                            w.privacy,
-                            w.name,
-                            w.description,
-                            w.user.id)
-                            FROM Watchlist w where w.id = :id""", WatchlistDto.class)
-                    .setParameter("id", id)
-                    .getSingleResult());
-        } catch (NoResultException e) {
-            return Optional.empty();
-        }
-    }
-
 }
 
