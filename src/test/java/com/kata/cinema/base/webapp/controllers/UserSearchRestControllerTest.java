@@ -15,8 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class UserSearchRestControllerTest extends CinemaBaseApplicationTests {
 
-
-    // получтить SearchDto по умолчанию
+    // получтить SearchDto по неполному имени и дефолтному значению лимита
     @Test
     @DatabaseSetup(value = {
             "/dataset/UserSearchRestController/movie.xml",
@@ -28,23 +27,16 @@ public class UserSearchRestControllerTest extends CinemaBaseApplicationTests {
             "/dataset/UserSearchRestController/person.xml",
     },
             type = DatabaseOperation.DELETE_ALL)
-    public void shouldGetSearchDto() throws Exception {
-
-        this.mockMvc.perform(get("/api/search/"))
+    public void shouldGetSearchDtoWithDefLimit() throws Exception {
+        this.mockMvc.perform(get("/api/search/notFullName?notFullName=100"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.movies[0].id").value(100))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.movies[1].id").value(101))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.movies[2].id").value(102))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.movies.length()").value(3))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[0].id").value(100))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[1].id").value(101))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons[2].id").value(102))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons.length()").value(3));
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.movies.length()").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.persons.length()").value(1));
     }
 
-
-    // получтить SearchDto по limit
+    // получтить SearchDto по неполному имени и лимиту
     @Test
     @DatabaseSetup(value = {
             "/dataset/UserSearchRestController/movie.xml",
@@ -57,52 +49,11 @@ public class UserSearchRestControllerTest extends CinemaBaseApplicationTests {
     },
             type = DatabaseOperation.DELETE_ALL)
     public void shouldGetSearchDtoWithLimit() throws Exception {
-        this.mockMvc.perform(get("/api/search/4"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.movies.length()").value(4))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.persons.length()").value(4));
-    }
-
-
-    // получтить SearchDto по не полному имени movie
-    @Test
-    @DatabaseSetup(value = {
-            "/dataset/UserSearchRestController/movie.xml",
-            "/dataset/UserSearchRestController/person.xml"
-    },
-            type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {
-            "/dataset/UserSearchRestController/movie.xml",
-            "/dataset/UserSearchRestController/person.xml",
-    },
-            type = DatabaseOperation.DELETE_ALL)
-    public void shouldGetSearchDtoNntFullName() throws Exception {
-        this.mockMvc.perform(get("/api/search/notFullName/movie"))
+        this.mockMvc.perform(get("/api/search/notFullName?notFullName=movie&limit=3"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].length()").value(5));
-    }
-
-
-    // получтить SearchDto по не полному имени 101
-    @Test
-    @DatabaseSetup(value = {
-            "/dataset/UserSearchRestController/movie.xml",
-            "/dataset/UserSearchRestController/person.xml"
-    },
-            type = DatabaseOperation.CLEAN_INSERT)
-    @DatabaseTearDown(value = {
-            "/dataset/UserSearchRestController/movie.xml",
-            "/dataset/UserSearchRestController/person.xml",
-    },
-            type = DatabaseOperation.DELETE_ALL)
-    public void shouldGetSearchDtoNntFullName2() throws Exception {
-        this.mockMvc.perform(get("/api/search/notFullName/101"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].name").value("movie101"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.movies.length()").value(3))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.persons.length()").value(0));
     }
 }
