@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <movies_genres
+            movie_id="1"
+            genre_id="1"
+    />
+    <movies_genres
+            movie_id="1"
+            genre_id="2"
+    />
+</dataset>

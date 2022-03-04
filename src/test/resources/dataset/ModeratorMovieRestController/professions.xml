@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <professions
+            id="1"
+            name="Актер"
+    />
+    <professions
+            id="2"
+            name="Режиссер"
+    />
+    <professions
+            id="3"
+            name="Сценарист"
+    />
+</dataset>
