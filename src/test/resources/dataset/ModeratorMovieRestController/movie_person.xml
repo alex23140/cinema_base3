@@ -4,18 +4,18 @@
             movie_id="1"
             person_id="1"
             name_role="Роль1"
-            type_person="0"
+            type_person="MAIN_CHARACTER"
     />
     <movie_person
             movie_id="1"
             person_id="2"
             name_role="Роль2"
-            type_person="0"
+            type_person="MAIN_CHARACTER"
     />
     <movie_person
             movie_id="1"
             person_id="3"
             name_role="-"
-            type_person="2"
+            type_person="NO_CHARACTER_MOVIE"
     />
 </dataset>

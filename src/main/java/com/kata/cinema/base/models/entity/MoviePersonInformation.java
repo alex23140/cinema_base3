@@ -58,6 +58,7 @@ public class MoviePersonInformation {
             inverseJoinColumns = {@JoinColumn(name = "profession_id")})
     private Set<Profession> professions;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type_person")
     private TypeCharacter type;
 

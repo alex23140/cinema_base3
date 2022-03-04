@@ -48,7 +48,7 @@ public class MovieDtoDaoImpl implements MovieDtoDao {
                             JOIN m.movie.genres g
                             JOIN m.professions p
                             WHERE m.movie.id= :id
-                               AND m.type <> 1
+                               AND (m.type <> 'MINOR_CHARACTER' OR m.type IS NULL)
                             """)
                     .setParameter("id", id)
                     .unwrap(org.hibernate.query.Query.class)
