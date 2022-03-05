@@ -1,11 +1,11 @@
 package com.kata.cinema.base.models.entity;
 
+import com.kata.cinema.base.models.enums.MPAA;
+import com.kata.cinema.base.models.enums.RARS;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.kata.cinema.base.models.enums.MPAA;
-import com.kata.cinema.base.models.enums.RARS;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -29,8 +29,8 @@ public class Movie {
     @Column(name = "country")
     private String country;
 
-    @Column(name = "origin_name")
-    private String originName;
+    @Column(name = "original_name")
+    private String originalName;
 
     @Column(name = "date_release")
     private LocalDate dateRelease;

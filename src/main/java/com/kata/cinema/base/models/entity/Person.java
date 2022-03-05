@@ -1,6 +1,9 @@
 package com.kata.cinema.base.models.entity;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -10,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "persons")
@@ -26,11 +28,11 @@ public class Person {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "originFirstName")
-    private String originFirstName;
+    @Column(name = "original_first_name")
+    private String originalFirstName;
 
-    @Column(name = "originLastName")
-    private String originLastName;
+    @Column(name = "original_last_name")
+    private String originalLastName;
 
     @Column(name = "avatarIsExist")
     private Boolean avatarIsExist;

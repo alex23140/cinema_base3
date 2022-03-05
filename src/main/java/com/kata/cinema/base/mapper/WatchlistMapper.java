@@ -5,5 +5,5 @@ import com.kata.cinema.base.models.entity.Watchlist;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface WatchlistMapper extends AbstractMapper<WatchlistDto, Watchlist> {
+public interface WatchlistMapper extends DtoMapper<WatchlistDto, Watchlist>, EntityMapper<WatchlistDto, Watchlist> {
 }

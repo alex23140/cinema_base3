@@ -22,11 +22,11 @@ public class SearchDtoDaoImpl implements SearchDtoDao {
                         select new com.kata.cinema.base.models.dto.SearchMovieDto(
                         u.id,
                         u.name,
-                        u.originName,
+                        u.originalName,
                         u.dateRelease,
                         u.previewIsExist,
                         :notFullName
-                        )from  Movie u where u.name LIKE :notFullName or u.originName LIKE :notFullName""", SearchMovieDto.class)
+                        )from  Movie u where u.name LIKE :notFullName or u.originalName LIKE :notFullName""", SearchMovieDto.class)
                 .setParameter("notFullName", "%" + notFullName + "%")
                 .getResultList().stream().limit(limit).collect(Collectors.toList());
         return movies;
@@ -38,11 +38,11 @@ public class SearchDtoDaoImpl implements SearchDtoDao {
                         SELECT NEW com.kata.cinema.base.models.dto.SearchPersonDto(
                         w.id,
                         concat(w.firstName , ' ', w.lastName), 
-                        concat(w.originFirstName , ' ', w.originLastName),
+                        concat(w.originalFirstName , ' ', w.originalLastName),
                         w.birthday,
                         w.avatarIsExist,
                         :notFullName
-                        ) FROM Person w where concat(w.firstName , ' ', w.lastName) LIKE :notFullName or concat(w.originFirstName , ' ', w.originLastName) LIKE :notFullName""", SearchPersonDto.class)
+                        ) FROM Person w where concat(w.firstName , ' ', w.lastName) LIKE :notFullName or concat(w.originalFirstName , ' ', w.originalLastName) LIKE :notFullName""", SearchPersonDto.class)
                 .setParameter("notFullName", "%" + notFullName + "%")
                 .getResultList().stream().limit(limit).collect(Collectors.toList());
         return person;

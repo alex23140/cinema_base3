@@ -6,7 +6,7 @@
             description="test2"
             mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie100"
-            origin_name="movie2"
+            original_name="movie2"
             preview_is_exist="true"
             rars="SIX_PLUS"
     />
@@ -17,7 +17,7 @@
             description="test101"
             mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie101"
-            origin_name="movie1011"
+            original_name="movie1011"
             preview_is_exist="true"
             rars="SIX_PLUS"
     />
@@ -28,7 +28,7 @@
             description="test102"
             mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie102"
-            origin_name="movie1021"
+            original_name="movie1021"
             preview_is_exist="true"
             rars="SIX_PLUS"
     />
@@ -39,7 +39,7 @@
             description="test103"
             mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie103"
-            origin_name="movie1031"
+            original_name="movie1031"
             preview_is_exist="true"
             rars="SIX_PLUS"
     />
@@ -50,7 +50,7 @@
             description="test104"
             mpaa="PARENTAL_GUIDANCE_SUGGESTED"
             name="movie104"
-            origin_name="movie1041"
+            original_name="movie1041"
             preview_is_exist="true"
             rars="SIX_PLUS"
     />

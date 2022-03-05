@@ -6,8 +6,8 @@
             first_name ="person100"
             growth ="175"
             last_name ="person"
-            origin_first_name ="origin100"
-            origin_last_name ="origin"
+            original_first_name ="origin100"
+            original_last_name ="origin"
             place_of_birth ="country100"
     />
     <persons
@@ -17,8 +17,8 @@
             first_name ="person101"
             growth ="180"
             last_name ="person"
-            origin_first_name ="origin101"
-            origin_last_name ="origin"
+            original_first_name ="origin101"
+            original_last_name ="origin"
             place_of_birth ="country101"
     />
     <persons
@@ -28,8 +28,8 @@
             first_name ="person102"
             growth ="182"
             last_name ="person"
-            origin_first_name ="origin102"
-            origin_last_name ="origin"
+            original_first_name ="origin102"
+            original_last_name ="origin"
             place_of_birth ="country102"
     />
     <persons
@@ -39,8 +39,8 @@
             first_name ="person103"
             growth ="183"
             last_name ="person"
-            origin_first_name ="origin103"
-            origin_last_name ="origin"
+            original_first_name ="origin103"
+            original_last_name ="origin"
             place_of_birth ="country103"
     />
     <persons
@@ -50,8 +50,8 @@
             first_name ="person104"
             growth ="184"
             last_name ="person"
-            origin_first_name ="origin104"
-            origin_last_name ="origin"
+            original_first_name ="origin104"
+            original_last_name ="origin"
             place_of_birth ="country104"
     />
 </dataset>

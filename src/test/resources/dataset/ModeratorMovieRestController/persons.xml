@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <persons
+            id="1"
+            birthday="2020-10-10"
+            first_name="имя1"
+            last_name="фамилия1"
+            growth="20"
+            original_first_name="name1"
+            original_last_name="lname1"
+            place_of_birth="place1"
+    />
+    <persons
+            id="2"
+            birthday="2020-10-10"
+            first_name="имя2"
+            last_name="фамилия2"
+            growth="20"
+            original_first_name="name2"
+            original_last_name="lname2"
+            place_of_birth="place2"
+    />
+    <persons
+            id="3"
+            birthday="2020-10-10"
+            first_name="имя3"
+            last_name="фамилия3"
+            growth="20"
+            original_first_name="name3"
+            original_last_name="lname3"
+            place_of_birth="place3"
+    />
+</dataset>

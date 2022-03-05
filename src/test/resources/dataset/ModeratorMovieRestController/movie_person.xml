@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <movie_person
+            movie_id="1"
+            person_id="1"
+            name_role="Роль1"
+            type_person="MAIN_CHARACTER"
+    />
+    <movie_person
+            movie_id="1"
+            person_id="2"
+            name_role="Роль2"
+            type_person="MAIN_CHARACTER"
+    />
+    <movie_person
+            movie_id="1"
+            person_id="3"
+            name_role="-"
+            type_person="NO_CHARACTER_MOVIE"
+    />
+</dataset>

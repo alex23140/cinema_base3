@@ -1,8 +1,6 @@
 package com.kata.cinema.base.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.kata.cinema.base.models.entity.Genre;
-import com.kata.cinema.base.models.entity.Person;
 import com.kata.cinema.base.models.enums.MPAA;
 import com.kata.cinema.base.models.enums.RARS;
 import lombok.*;
@@ -17,12 +15,11 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "name"})
-public class MovieDto {
+public class MoviePersonDto {
     private Long id;
 
     @NotBlank
     private String name;
-    private String originName;
     private String country;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
@@ -33,5 +30,6 @@ public class MovieDto {
     private String description;
     private Boolean previewIsExist = false;
 
-    private List<GenreDto> genres;
+    private List<String> genres;
+    private Map<String, List<PersonMovieDto>> persons;
 }

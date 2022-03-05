@@ -2,6 +2,7 @@ package com.kata.cinema.base.webapp.controllers.moderator;
 
 import com.kata.cinema.base.mapper.MovieMapper;
 import com.kata.cinema.base.models.dto.MovieDto;
+import com.kata.cinema.base.models.dto.MoviePersonDto;
 import com.kata.cinema.base.models.entity.Movie;
 import com.kata.cinema.base.service.abstracts.dto.MovieDtoService;
 import com.kata.cinema.base.service.abstracts.entity.MovieService;
@@ -37,13 +38,13 @@ public class ModeratorMovieRestController {
 
     @ApiOperation(value = "Получение Movie по id", notes = "Получение Movie по id", response = MovieDto.class)
     @GetMapping("/{id}")
-    public ResponseEntity<MovieDto> getMovie(@Positive @PathVariable("id") Long id) {
+    public ResponseEntity<MoviePersonDto> getMovie(@Positive @PathVariable("id") Long id) {
         return ResponseEntity.ok().body(movieDtoService.getById(id).get());
     }
 
     @PostMapping("/{id}/uploadPreview")
-     public ResponseEntity<?> uploadPreview(@PathVariable("id") Long id,
-                                            @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadPreview(@PathVariable("id") Long id,
+                                           @RequestParam("file") MultipartFile file) {
         Optional<Movie> movieOptional = movieService.getById(id);
         ApiValidationUtils.requireTrue(movieOptional.isPresent(), "фильма с таким id не существует");
         ApiValidationUtils.requireFalse(file.isEmpty(), "пришел пустой файл");
